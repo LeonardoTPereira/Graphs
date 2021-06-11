@@ -1,21 +1,27 @@
+package graph;
+
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 import static guru.nidi.graphviz.model.Factory.mutGraph;
 import static guru.nidi.graphviz.model.Factory.mutNode;
 
-public class Digraph_Matrix extends AbstractGraph
+public class DigraphMatrix extends AbstractGraph
 {
+    private static final Logger LOGGER = Logger.getLogger("DigraphMatrix.class");
 
     Edge[][] adjacencyMatrix;
 
-    public Digraph_Matrix(List<Vertex> vertices)
+    public DigraphMatrix(List<Vertex> vertices)
     {
         super(vertices);
         initializeAdjacencyMatrix();
@@ -36,75 +42,81 @@ public class Digraph_Matrix extends AbstractGraph
     @Override
     public void addVertex(Vertex vertex)
     {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void removeVertex(Vertex vertex)
     {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void addEdge(int source, int destination)
+    public void addEdge(Vertex source, Vertex destination)
     {
         if(!edgeExists(source, destination))
         {
-            adjacencyMatrix[source][destination] = new Edge(1);
+            adjacencyMatrix[vertices.indexOf(source)][vertices.indexOf(destination)] = new Edge(1);
         }
     }
 
     @Override
-    public void removeEdge(int source, int destination)
+    public void removeEdge(Vertex source, Vertex destination)
     {
+        int sourceIndex = vertices.indexOf(source);
+        int destinationIndex = vertices.indexOf(destination);
         if(edgeExists(source, destination))
-            adjacencyMatrix[source][destination] = null;
+            adjacencyMatrix[sourceIndex][destinationIndex] = null;
     }
 
     @Override
-    public boolean edgeExists(int source, int destination)
+    public boolean edgeExists(Vertex source, Vertex destination)
     {
-        return adjacencyMatrix[source][destination] != null;
+        int sourceIndex = vertices.indexOf(source);
+        int destinationIndex = vertices.indexOf(destination);
+        return adjacencyMatrix[sourceIndex][destinationIndex] != null;
     }
 
     @Override
-    public boolean hasAnyEdge(int vertex)
+    public boolean hasAnyEdge(Vertex vertex)
     {
+        int vertexIndex = vertices.indexOf(vertex);
         for (int i = 0; i < numberOfVertices; i++)
         {
-            if(adjacencyMatrix[vertex][i] != null)
+            if(adjacencyMatrix[vertexIndex][i] != null)
                 return true;
         }
         return false;
     }
 
     @Override
-    public int getFirstConnectedVertexIndex(int vertex)
+    public int getFirstConnectedVertexIndex(Vertex vertex)
     {
         return getNextConnectedVertexIndex(vertex, 0);
     }
 
     @Override
-    public int getNextConnectedVertexIndex(int vertex, int currentEdge)
+    public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
     {
         for (int i = currentEdge; i < numberOfVertices; i++)
         {
-            if(edgeExists(vertex, i))
+            if(edgeExists(vertex, vertices.get(i)))
                 return i;
         }
         return -1;
     }
 
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < numberOfVertices; i++) {
             s.append(i).append(": ");
             for (int j = 0; j < numberOfVertices; ++j)
             {
-                if(edgeExists(i, j))
-                    s.append(adjacencyMatrix[i][j].value).append(" ");
+                if(edgeExists(vertices.get(i), vertices.get(j)))
+                    s.append(adjacencyMatrix[i][j].weight).append(" ");
                 else
-                    s.append(0 + " ");
+                    s.append(0.0 + " ");
             }
             s.append("\n");
         }
@@ -120,7 +132,7 @@ public class Digraph_Matrix extends AbstractGraph
         {
             for (int j = 0; j < numberOfVertices; ++j)
             {
-                if(edgeExists(i, j))
+                if(edgeExists(vertices.get(i), vertices.get(j)))
                     g.add(mutNode(vertices.get(i).name).addLink(vertices.get(j).name));
             }
         }
@@ -136,22 +148,26 @@ public class Digraph_Matrix extends AbstractGraph
 
     public static void main(String[] args)
     {
-        AbstractGraph g = new Digraph_Matrix(new ArrayList<>()
-        {{
-            add(new Vertex("Joao"));
-            add(new Vertex("Maria"));
-            add(new Vertex("José"));
-            add(new Vertex("Marcos"));
-            add(new Vertex("Pedro"));
-        }});
 
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(1, 2);
-        g.addEdge(2, 0);
-        g.addEdge(2, 3);
+        AbstractGraph g = new DigraphMatrix(
+                new ArrayList<>(
+                        Arrays.asList(new Vertex("Joao"),
+                                new Vertex("Maria"),
+                                new Vertex("José"),
+                                new Vertex("Marcos"),
+                                new Vertex("Pedro")
+                        )
+                )
+        );
 
-        System.out.print(g);
+        g.addEdge(g.vertices.get(0), g.vertices.get(1));
+        g.addEdge(g.vertices.get(0), g.vertices.get(2));
+        g.addEdge(g.vertices.get(1), g.vertices.get(2));
+        g.addEdge(g.vertices.get(2), g.vertices.get(0));
+        g.addEdge(g.vertices.get(2), g.vertices.get(3));
+
+        var graphString = "\n"+ g +"\n";
+        LOGGER.info(graphString);
         g.printInGraphViz("Digraph");
     }
 }
