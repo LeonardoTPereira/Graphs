@@ -1,19 +1,17 @@
 package graph;
 
+import static guru.nidi.graphviz.model.Factory.mutGraph;
+import static guru.nidi.graphviz.model.Factory.mutNode;
+
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.logging.Logger;
-
-import static guru.nidi.graphviz.model.Factory.mutGraph;
-import static guru.nidi.graphviz.model.Factory.mutNode;
 
 public class DigraphMatrix extends AbstractGraph
 {
@@ -30,9 +28,9 @@ public class DigraphMatrix extends AbstractGraph
     private void initializeAdjacencyMatrix()
     {
         adjacencyMatrix = new Edge[numberOfVertices][numberOfVertices];
-        for (int i = 0; i < numberOfVertices; i++)
+        for (var i = 0; i < numberOfVertices; i++)
         {
-            for (int j = 0; j < numberOfVertices; j++)
+            for (var j = 0; j < numberOfVertices; j++)
             {
                 adjacencyMatrix[i][j] = null;
             }
@@ -81,7 +79,7 @@ public class DigraphMatrix extends AbstractGraph
     public boolean hasAnyEdge(Vertex vertex)
     {
         int vertexIndex = vertices.indexOf(vertex);
-        for (int i = 0; i < numberOfVertices; i++)
+        for (var i = 0; i < numberOfVertices; i++)
         {
             if(adjacencyMatrix[vertexIndex][i] != null)
                 return true;
@@ -108,10 +106,10 @@ public class DigraphMatrix extends AbstractGraph
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < numberOfVertices; i++) {
+        var s = new StringBuilder();
+        for (var i = 0; i < numberOfVertices; i++) {
             s.append(i).append(": ");
-            for (int j = 0; j < numberOfVertices; ++j)
+            for (var j = 0; j < numberOfVertices; ++j)
             {
                 if(edgeExists(vertices.get(i), vertices.get(j)))
                     s.append(adjacencyMatrix[i][j].weight).append(" ");
@@ -128,9 +126,9 @@ public class DigraphMatrix extends AbstractGraph
     {
         MutableGraph g = mutGraph("example1Digraph").setDirected(true);
 
-        for (int i = 0; i < numberOfVertices; ++i)
+        for (var i = 0; i < numberOfVertices; ++i)
         {
-            for (int j = 0; j < numberOfVertices; ++j)
+            for (var j = 0; j < numberOfVertices; ++j)
             {
                 if(edgeExists(vertices.get(i), vertices.get(j)))
                     g.add(mutNode(vertices.get(i).name).addLink(vertices.get(j).name));
