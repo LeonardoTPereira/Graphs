@@ -8,15 +8,10 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.util.logging.Logger;
 
 public class DigraphMatrix extends AbstractGraph
 {
-    private static final Logger LOGGER = Logger.getLogger("DigraphMatrix.class");
-
     Edge[][] adjacencyMatrix;
 
     public DigraphMatrix(List<Vertex> vertices)
@@ -142,30 +137,5 @@ public class DigraphMatrix extends AbstractGraph
         {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args)
-    {
-
-        AbstractGraph g = new DigraphMatrix(
-                new ArrayList<>(
-                        Arrays.asList(new Vertex("Joao"),
-                                new Vertex("Maria"),
-                                new Vertex("José"),
-                                new Vertex("Marcos"),
-                                new Vertex("Pedro")
-                        )
-                )
-        );
-
-        g.addEdge(g.vertices.get(0), g.vertices.get(1));
-        g.addEdge(g.vertices.get(0), g.vertices.get(2));
-        g.addEdge(g.vertices.get(1), g.vertices.get(2));
-        g.addEdge(g.vertices.get(2), g.vertices.get(0));
-        g.addEdge(g.vertices.get(2), g.vertices.get(3));
-
-        var graphString = "\n"+ g +"\n";
-        LOGGER.info(graphString);
-        g.printInGraphViz("Digraph");
     }
 }

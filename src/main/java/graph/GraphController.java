@@ -1,8 +1,6 @@
 package graph;
 
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class GraphController
@@ -12,61 +10,50 @@ public class GraphController
 
     public static void main(String[] args)
     {
-        ArrayList<Vertex> vertices = new ArrayList<>(
-                Arrays.asList(new Vertex("Joao"),
-                        new Vertex("Maria"),
-                        new Vertex("José"),
-                        new Vertex("Marcos"),
-                        new Vertex("Pedro")
-                )
-        );
+        ArrayList<Vertex> vertices = createVertexList();
 
         AbstractGraph g = new DigraphMatrix( vertices );
-
-        g.addEdge(g.vertices.get(0), g.vertices.get(1));
-        g.addEdge(g.vertices.get(0), g.vertices.get(2));
-        g.addEdge(g.vertices.get(1), g.vertices.get(2));
-        g.addEdge(g.vertices.get(2), g.vertices.get(0));
-        g.addEdge(g.vertices.get(2), g.vertices.get(3));
-
-        var graphString = "\n"+ g +"\n";
-        LOGGER.info(graphString);
-        g.printInGraphViz("Digraph");
+        createTest(g);
+        printTest(g, "MatrixDigraph");
 
         g = new GraphMatrix(vertices);
-
-        g.addEdge(g.vertices.get(0), g.vertices.get(1));
-        g.addEdge(g.vertices.get(0), g.vertices.get(2));
-        g.addEdge(g.vertices.get(1), g.vertices.get(2));
-        g.addEdge(g.vertices.get(2), g.vertices.get(0));
-        g.addEdge(g.vertices.get(2), g.vertices.get(3));
-
-        graphString = "\n"+ g +"\n";
-        LOGGER.info(graphString);
-        g.printInGraphViz("Graph");
+        createTest(g);
+        printTest(g, "MatrixGraph");
 
         g = new DigraphList(vertices);
-
-        g.addEdge(g.vertices.get(0), g.vertices.get(1));
-        g.addEdge(g.vertices.get(0), g.vertices.get(2));
-        g.addEdge(g.vertices.get(1), g.vertices.get(2));
-        g.addEdge(g.vertices.get(2), g.vertices.get(0));
-        g.addEdge(g.vertices.get(2), g.vertices.get(3));
-
-        graphString = "\n"+ g +"\n";
-        LOGGER.info(graphString);
-        g.printInGraphViz("ListDigraph");
+        createTest(g);
+        printTest(g, "ListDigraph");
 
         g = new GraphList(vertices);
+        createTest(g);
+        printTest(g, "ListGraph");
 
+    }
+
+    private static ArrayList<Vertex> createVertexList()
+    {
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        vertices.add(new Vertex("Joao"));
+        vertices.add(new Vertex("Maria"));
+        vertices.add(new Vertex("José"));
+        vertices.add(new Vertex("Marcos"));
+        vertices.add(new Vertex("Pedro"));
+        return vertices;
+    }
+
+    private static void printTest(AbstractGraph g, String fileName)
+    {
+        var graphString = "\n"+ g +"\n";
+        LOGGER.info(graphString);
+        g.printInGraphViz(fileName);
+    }
+
+    private static void createTest(AbstractGraph g)
+    {
         g.addEdge(g.vertices.get(0), g.vertices.get(1));
         g.addEdge(g.vertices.get(0), g.vertices.get(2));
         g.addEdge(g.vertices.get(1), g.vertices.get(2));
         g.addEdge(g.vertices.get(2), g.vertices.get(0));
         g.addEdge(g.vertices.get(2), g.vertices.get(3));
-
-        graphString = "\n"+ g +"\n";
-        LOGGER.info(graphString);
-        g.printInGraphViz("ListGraph");
     }
 }
