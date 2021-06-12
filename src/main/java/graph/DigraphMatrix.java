@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DigraphMatrix extends AbstractGraph
 {
-    Edge[][] adjacencyMatrix;
+    protected Edge[][] adjacencyMatrix;
 
     public DigraphMatrix(List<Vertex> vertices)
     {
@@ -107,7 +107,7 @@ public class DigraphMatrix extends AbstractGraph
             for (var j = 0; j < numberOfVertices; ++j)
             {
                 if(edgeExists(vertices.get(i), vertices.get(j)))
-                    s.append(adjacencyMatrix[i][j].weight).append(" ");
+                    s.append(adjacencyMatrix[i][j].getWeight()).append(" ");
                 else
                     s.append(0.0 + " ");
             }
@@ -126,7 +126,7 @@ public class DigraphMatrix extends AbstractGraph
             for (var j = 0; j < numberOfVertices; ++j)
             {
                 if(edgeExists(vertices.get(i), vertices.get(j)))
-                    g.add(mutNode(vertices.get(i).name).addLink(vertices.get(j).name));
+                    g.add(mutNode(vertices.get(i).getName()).addLink(vertices.get(j).getName()));
             }
         }
         try

@@ -2,8 +2,8 @@ package graph;
 
 public class Edge
 {
-    Vertex destination;
-    float weight;
+    private Vertex destination;
+    private float weight;
 
     public Edge(Vertex destination, float weight)
     {
@@ -14,6 +14,26 @@ public class Edge
     public Edge(float weight)
     {
         this.destination = null;
+        this.weight = weight;
+    }
+
+    public Vertex getDestination()
+    {
+        return destination;
+    }
+
+    public void setDestination(Vertex destination)
+    {
+        this.destination = destination;
+    }
+
+    public float getWeight()
+    {
+        return weight;
+    }
+
+    public void setWeight(float weight)
+    {
         this.weight = weight;
     }
 }

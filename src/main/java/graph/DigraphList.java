@@ -14,7 +14,7 @@ import static guru.nidi.graphviz.model.Factory.mutNode;
 
 public class DigraphList extends AbstractGraph
 {
-    List<List<Edge>> adjacencyList;
+    protected List<List<Edge>> adjacencyList;
 
     public DigraphList(List<Vertex> vertices)
     {
@@ -61,7 +61,7 @@ public class DigraphList extends AbstractGraph
         List<Edge> sourceEdges = adjacencyList.get(sourceIndex);
         for (int i = sourceEdges.size()-1; i > -1; i--)
         {
-            if(sourceEdges.get(i).destination == destination)
+            if(sourceEdges.get(i).getDestination() == destination)
             {
                 sourceEdges.remove(i);
             }
@@ -76,7 +76,7 @@ public class DigraphList extends AbstractGraph
         List<Edge> sourceEdges = adjacencyList.get(sourceIndex);
         for (Edge sourceEdge : sourceEdges)
         {
-            if (sourceEdge.destination == destination)
+            if (sourceEdge.getDestination() == destination)
             {
                 return true;
             }
@@ -97,7 +97,7 @@ public class DigraphList extends AbstractGraph
         for (var i = 0; i < numberOfVertices; i++) {
             for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
-                if(adjacencyList.get(i).get(j).destination == vertex)
+                if(adjacencyList.get(i).get(j).getDestination() == vertex)
                 {
                     return true;
                 }
@@ -119,7 +119,7 @@ public class DigraphList extends AbstractGraph
         if(currentEdge >= adjacencyList.get(vertexIndex).size())
             return -1;
         else
-            return ++currentEdge;
+            return currentEdge+1;
     }
 
 
@@ -130,7 +130,7 @@ public class DigraphList extends AbstractGraph
             s.append(i).append(": ");
             for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
-                s.append(adjacencyList.get(i).get(j).weight).append(" ");
+                s.append(adjacencyList.get(i).get(j).getWeight()).append(" ");
             }
             s.append("\n");
         }
@@ -145,8 +145,8 @@ public class DigraphList extends AbstractGraph
         for (var i = 0; i < numberOfVertices; i++) {
             for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
-                int destinationIndex = vertices.indexOf(adjacencyList.get(i).get(j).destination);
-                g.add(mutNode(vertices.get(i).name).addLink(vertices.get(destinationIndex).name));
+                int destinationIndex = vertices.indexOf(adjacencyList.get(i).get(j).getDestination());
+                g.add(mutNode(vertices.get(i).getName()).addLink(vertices.get(destinationIndex).getName()));
             }
         }
         try
