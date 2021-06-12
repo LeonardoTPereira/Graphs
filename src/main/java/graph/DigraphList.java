@@ -25,7 +25,7 @@ public class DigraphList extends AbstractGraph
     private void initializeAdjacencyList()
     {
         adjacencyList = new ArrayList<>();
-        for (int i = 0; i < numberOfVertices; i++)
+        for (var i = 0; i < numberOfVertices; i++)
         {
             adjacencyList.add(new ArrayList<>());
         }
@@ -46,8 +46,12 @@ public class DigraphList extends AbstractGraph
     @Override
     public void addEdge(Vertex source, Vertex destination)
     {
-        int sourceIndex = vertices.indexOf(source);
-        adjacencyList.get(sourceIndex).add(new Edge(destination, 1));
+
+        if(!edgeExists(source, destination))
+        {
+            int sourceIndex = vertices.indexOf(source);
+            adjacencyList.get(sourceIndex).add(new Edge(destination, 1));
+        }
     }
 
     @Override
@@ -70,9 +74,9 @@ public class DigraphList extends AbstractGraph
 
         int sourceIndex = vertices.indexOf(source);
         List<Edge> sourceEdges = adjacencyList.get(sourceIndex);
-        for (int i = 0; i < sourceEdges.size(); i++)
+        for (Edge sourceEdge : sourceEdges)
         {
-            if(sourceEdges.get(i).destination == destination)
+            if (sourceEdge.destination == destination)
             {
                 return true;
             }
@@ -90,8 +94,8 @@ public class DigraphList extends AbstractGraph
             return true;
         }
 
-        for (int i = 0; i < numberOfVertices; i++) {
-            for (int j = 0; j < adjacencyList.get(i).size(); ++j)
+        for (var i = 0; i < numberOfVertices; i++) {
+            for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
                 if(adjacencyList.get(i).get(j).destination == vertex)
                 {
@@ -112,19 +116,19 @@ public class DigraphList extends AbstractGraph
     public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
     {
         int vertexIndex = vertices.indexOf(vertex);
-        if( (++currentEdge) >= adjacencyList.get(vertexIndex).size())
+        if(currentEdge >= adjacencyList.get(vertexIndex).size())
             return -1;
         else
-            return currentEdge;
+            return ++currentEdge;
     }
 
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < numberOfVertices; i++) {
+        var s = new StringBuilder();
+        for (var i = 0; i < numberOfVertices; i++) {
             s.append(i).append(": ");
-            for (int j = 0; j < adjacencyList.get(i).size(); ++j)
+            for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
                 s.append(adjacencyList.get(i).get(j).weight).append(" ");
             }
@@ -138,8 +142,8 @@ public class DigraphList extends AbstractGraph
     {
         MutableGraph g = mutGraph("example1Digraph").setDirected(true);
 
-        for (int i = 0; i < numberOfVertices; i++) {
-            for (int j = 0; j < adjacencyList.get(i).size(); ++j)
+        for (var i = 0; i < numberOfVertices; i++) {
+            for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
                 int destinationIndex = vertices.indexOf(adjacencyList.get(i).get(j).destination);
                 g.add(mutNode(vertices.get(i).name).addLink(vertices.get(destinationIndex).name));
