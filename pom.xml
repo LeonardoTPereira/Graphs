@@ -36,7 +36,8 @@
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
+        <sonar.projectKey>LeonardoTPereira_Graphs</sonar.projectKey>
+        <sonar.organization>leonardotpereira</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
-
-
 </project>
