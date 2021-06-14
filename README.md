@@ -1,6 +1,7 @@
 # Graphs
 Graph examples from Algorithm and Data Structures 2 Classes
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/11e6b3ef47ea4a78a7079ee3922dcd6a)](https://app.codacy.com/gh/LeonardoTPereira/Graphs?utm_source=github.com&utm_medium=referral&utm_content=LeonardoTPereira/Graphs&utm_campaign=Badge_Grade_Settings)
 [![Codacy Analysis CLI](https://github.com/LeonardoTPereira/Graphs/actions/workflows/codacy-analysis.yaml/badge.svg)](https://github.com/LeonardoTPereira/Graphs/actions/workflows/codacy-analysis.yaml)
 [![Codacy Security Scan](https://github.com/LeonardoTPereira/Graphs/actions/workflows/codacy-analysis.yml/badge.svg)](https://github.com/LeonardoTPereira/Graphs/actions/workflows/codacy-analysis.yml)
 [![Java CI with Maven](https://github.com/LeonardoTPereira/Graphs/actions/workflows/maven.yml/badge.svg)](https://github.com/LeonardoTPereira/Graphs/actions/workflows/maven.yml)
