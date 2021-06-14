@@ -64,7 +64,8 @@ jobs:
     #    uses a compiled language
 
     - run: |
-       mvn --batch-mode --update-snapshots verify
+       make bootstrap
+       mvn -B package --file pom.xml
        make release
 
     - name: Perform CodeQL Analysis
