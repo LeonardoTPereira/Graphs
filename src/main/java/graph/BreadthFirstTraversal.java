@@ -3,7 +3,7 @@ package graph;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BreadthFirstTraversal implements TraversalStrategyInterface
+public final class BreadthFirstTraversal implements TraversalStrategyInterface
 {
     @Override
     public String traverseGraph(AbstractGraph g, Vertex source)
@@ -13,15 +13,15 @@ public class BreadthFirstTraversal implements TraversalStrategyInterface
         Queue<Vertex> vertexesToVisit = new LinkedList<>();
         vertexesToVisit.add(source);
         var visitedPath = new StringBuilder();
-
+        Vertex currentVisitedVertex;
         while(!vertexesToVisit.isEmpty())
         {
-            source = vertexesToVisit.poll();
-            if (source != null)
+            currentVisitedVertex = vertexesToVisit.poll();
+            if (currentVisitedVertex != null)
             {
-                visitedPath.append(source).append(' ');
+                visitedPath.append(currentVisitedVertex).append(' ');
             }
-            int adjacentVertexIndex = g.getFirstConnectedVertexIndex(source);
+            int adjacentVertexIndex = g.getFirstConnectedVertexIndex(currentVisitedVertex);
             while(adjacentVertexIndex != -1)
             {
                 if(!visited[adjacentVertexIndex])
@@ -29,7 +29,7 @@ public class BreadthFirstTraversal implements TraversalStrategyInterface
                     visited[adjacentVertexIndex] = true;
                     vertexesToVisit.add(g.vertices.get(adjacentVertexIndex));
                 }
-                adjacentVertexIndex = g.getNextConnectedVertexIndex(source, adjacentVertexIndex);
+                adjacentVertexIndex = g.getNextConnectedVertexIndex(currentVisitedVertex, adjacentVertexIndex);
             }
         }
         return visitedPath.toString();

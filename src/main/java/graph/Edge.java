@@ -22,7 +22,7 @@ public class Edge
         return destination;
     }
 
-    public void setDestination(Vertex destination)
+    public final void setDestination(Vertex destination)
     {
         this.destination = destination;
     }
@@ -32,7 +32,7 @@ public class Edge
         return weight;
     }
 
-    public void setWeight(float weight)
+    public final void setWeight(float weight)
     {
         this.weight = weight;
     }
