@@ -85,13 +85,25 @@ public class DigraphMatrix extends AbstractGraph
     @Override
     public int getFirstConnectedVertexIndex(Vertex vertex)
     {
-        return getNextConnectedVertexIndex(vertex, 0);
+        if(!hasAnyEdge(vertex))
+        {
+            return -1;
+        }
+        else
+        {
+            var currentVertexIndex = 0;
+            while(!edgeExists(vertex, vertices.get(currentVertexIndex)))
+            {
+                currentVertexIndex++;
+            }
+            return currentVertexIndex;
+        }
     }
 
     @Override
     public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
     {
-        for (int i = currentEdge; i < numberOfVertices; i++)
+        for (int i = (currentEdge+1); i < numberOfVertices; i++)
         {
             if(edgeExists(vertex, vertices.get(i)))
                 return i;
@@ -102,7 +114,8 @@ public class DigraphMatrix extends AbstractGraph
     @Override
     public String toString() {
         var s = new StringBuilder();
-        for (var i = 0; i < numberOfVertices; i++) {
+        for (var i = 0; i < numberOfVertices; i++)
+        {
             s.append(i).append(": ");
             for (var j = 0; j < numberOfVertices; ++j)
             {

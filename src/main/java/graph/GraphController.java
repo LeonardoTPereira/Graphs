@@ -7,26 +7,39 @@ public class GraphController
 {
     private static final Logger LOGGER = Logger.getLogger("GraphController.class");
 
-
     public static void main(String[] args)
     {
         ArrayList<Vertex> vertices = createVertexList();
 
+        TraversalStrategyInterface traversalStrategy = new BreadthFirstTraversal();
+
         AbstractGraph g = new DigraphMatrix( vertices );
         createTest(g);
         printTest(g, "MatrixDigraph");
+        var traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = "\n"+ traversalPath +"\n";
+        LOGGER.info(traversalPath);
 
         g = new GraphMatrix(vertices);
         createTest(g);
         printTest(g, "MatrixGraph");
+        traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = "\n"+ traversalPath +"\n";
+        LOGGER.info(traversalPath);
 
         g = new DigraphList(vertices);
         createTest(g);
         printTest(g, "ListDigraph");
+        traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = "\n"+ traversalPath +"\n";
+        LOGGER.info(traversalPath);
 
         g = new GraphList(vertices);
         createTest(g);
         printTest(g, "ListGraph");
+        traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = "\n"+ traversalPath +"\n";
+        LOGGER.info(traversalPath);
 
     }
 
@@ -38,6 +51,8 @@ public class GraphController
         vertices.add(new Vertex("José"));
         vertices.add(new Vertex("Marcos"));
         vertices.add(new Vertex("Pedro"));
+        vertices.add(new Vertex("Amanda"));
+        vertices.add(new Vertex("Leonardo"));
         return vertices;
     }
 
@@ -55,5 +70,9 @@ public class GraphController
         g.addEdge(g.vertices.get(1), g.vertices.get(2));
         g.addEdge(g.vertices.get(2), g.vertices.get(0));
         g.addEdge(g.vertices.get(2), g.vertices.get(3));
+        g.addEdge(g.vertices.get(3), g.vertices.get(4));
+        g.addEdge(g.vertices.get(4), g.vertices.get(5));
+        g.addEdge(g.vertices.get(5), g.vertices.get(6));
+        g.addEdge(g.vertices.get(5), g.vertices.get(0));
     }
 }
