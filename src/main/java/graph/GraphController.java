@@ -1,15 +1,21 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
-public class GraphController
+public final class GraphController
 {
     private static final Logger LOGGER = Logger.getLogger("GraphController.class");
 
+    private GraphController()
+    {
+
+    }
+
     public static void main(String[] args)
     {
-        ArrayList<Vertex> vertices = createVertexList();
+        var vertices = createVertexList();
 
         TraversalStrategyInterface traversalStrategy = new BreadthFirstTraversal();
 
@@ -43,9 +49,9 @@ public class GraphController
 
     }
 
-    private static ArrayList<Vertex> createVertexList()
+    private static List<Vertex> createVertexList()
     {
-        ArrayList<Vertex> vertices = new ArrayList<>();
+        List<Vertex> vertices = new ArrayList<>();
         vertices.add(new Vertex("Joao"));
         vertices.add(new Vertex("Maria"));
         vertices.add(new Vertex("José"));

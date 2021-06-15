@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DigraphMatrix extends AbstractGraph
 {
-    protected Edge[][] adjacencyMatrix;
+    private Edge[][] adjacencyMatrix;
 
     public DigraphMatrix(List<Vertex> vertices)
     {
@@ -22,12 +22,12 @@ public class DigraphMatrix extends AbstractGraph
 
     private void initializeAdjacencyMatrix()
     {
-        adjacencyMatrix = new Edge[numberOfVertices][numberOfVertices];
+        setAdjacencyMatrix(new Edge[numberOfVertices][numberOfVertices]);
         for (var i = 0; i < numberOfVertices; i++)
         {
             for (var j = 0; j < numberOfVertices; j++)
             {
-                adjacencyMatrix[i][j] = null;
+                getAdjacencyMatrix()[i][j] = null;
             }
         }
     }
@@ -49,7 +49,7 @@ public class DigraphMatrix extends AbstractGraph
     {
         if(!edgeExists(source, destination))
         {
-            adjacencyMatrix[vertices.indexOf(source)][vertices.indexOf(destination)] = new Edge(1);
+            getAdjacencyMatrix()[vertices.indexOf(source)][vertices.indexOf(destination)] = new Edge(1);
         }
     }
 
@@ -59,7 +59,9 @@ public class DigraphMatrix extends AbstractGraph
         int sourceIndex = vertices.indexOf(source);
         int destinationIndex = vertices.indexOf(destination);
         if(edgeExists(source, destination))
-            adjacencyMatrix[sourceIndex][destinationIndex] = null;
+        {
+            getAdjacencyMatrix()[sourceIndex][destinationIndex] = null;
+        }
     }
 
     @Override
@@ -67,7 +69,7 @@ public class DigraphMatrix extends AbstractGraph
     {
         int sourceIndex = vertices.indexOf(source);
         int destinationIndex = vertices.indexOf(destination);
-        return adjacencyMatrix[sourceIndex][destinationIndex] != null;
+        return getAdjacencyMatrix()[sourceIndex][destinationIndex] != null;
     }
 
     @Override
@@ -76,8 +78,10 @@ public class DigraphMatrix extends AbstractGraph
         int vertexIndex = vertices.indexOf(vertex);
         for (var i = 0; i < numberOfVertices; i++)
         {
-            if(adjacencyMatrix[vertexIndex][i] != null)
+            if(getAdjacencyMatrix()[vertexIndex][i] != null)
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -106,7 +110,9 @@ public class DigraphMatrix extends AbstractGraph
         for (int i = (currentEdge+1); i < numberOfVertices; i++)
         {
             if(edgeExists(vertex, vertices.get(i)))
+            {
                 return i;
+            }
         }
         return -1;
     }
@@ -120,9 +126,13 @@ public class DigraphMatrix extends AbstractGraph
             for (var j = 0; j < numberOfVertices; ++j)
             {
                 if(edgeExists(vertices.get(i), vertices.get(j)))
-                    s.append(adjacencyMatrix[i][j].getWeight()).append(" ");
+                {
+                    s.append(getAdjacencyMatrix()[i][j].getWeight()).append(" ");
+                }
                 else
+                {
                     s.append(0.0 + " ");
+                }
             }
             s.append("\n");
         }
@@ -139,16 +149,28 @@ public class DigraphMatrix extends AbstractGraph
             for (var j = 0; j < numberOfVertices; ++j)
             {
                 if(edgeExists(vertices.get(i), vertices.get(j)))
+                {
                     g.add(mutNode(vertices.get(i).getName()).addLink(vertices.get(j).getName()));
+                }
             }
         }
         try
         {
-            Graphviz.fromGraph(g).width(200).render(Format.PNG).toFile(new File("example/"+fileName+".png"));
+            Graphviz.fromGraph(g).width(GRAPHVIZ_IMAGE_WIDTH).render(Format.PNG).toFile(new File(GRAPHVIZ_FOLDER+fileName+GRAPHVIZ_FILE_EXTENSION));
         }
         catch ( IOException e )
         {
             e.printStackTrace();
         }
+    }
+
+    public Edge[][] getAdjacencyMatrix()
+    {
+        return adjacencyMatrix;
+    }
+
+    public void setAdjacencyMatrix(Edge[][] adjacencyMatrix)
+    {
+        this.adjacencyMatrix = adjacencyMatrix;
     }
 }

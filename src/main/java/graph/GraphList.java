@@ -40,6 +40,6 @@ public class GraphList extends DigraphList
     public boolean hasAnyEdge(Vertex vertex)
     {
         int vertexIndex = vertices.indexOf(vertex);
-        return !adjacencyList.get(vertexIndex).isEmpty();
+        return !getAdjacencyList().get(vertexIndex).isEmpty();
     }
 }
