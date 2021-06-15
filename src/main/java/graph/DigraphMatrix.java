@@ -164,6 +164,12 @@ public class DigraphMatrix extends AbstractGraph
         }
     }
 
+    @Override
+    public float getDistance(Vertex source, Vertex destination)
+    {
+        return adjacencyMatrix[vertices.indexOf(source)][vertices.indexOf(destination)].getWeight();
+    }
+
     public Edge[][] getAdjacencyMatrix()
     {
         return adjacencyMatrix;
