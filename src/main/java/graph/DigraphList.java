@@ -94,7 +94,8 @@ public class DigraphList extends AbstractGraph
             return true;
         }
 
-        for (var i = 0; i < numberOfVertices; i++) {
+        for (var i = 0; i < numberOfVertices; i++)
+        {
             for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
                 if(adjacencyList.get(i).get(j).getDestination() == vertex)
@@ -109,24 +110,38 @@ public class DigraphList extends AbstractGraph
     @Override
     public int getFirstConnectedVertexIndex(Vertex vertex)
     {
-        return getNextConnectedVertexIndex(vertex, 0);
+        if(adjacencyList.get(vertices.indexOf(vertex)).isEmpty())
+            return -1;
+        else
+            return vertices.indexOf(adjacencyList.get(vertices.indexOf(vertex)).get(0).getDestination());
     }
 
     @Override
     public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
     {
         int vertexIndex = vertices.indexOf(vertex);
-        if(currentEdge >= adjacencyList.get(vertexIndex).size())
-            return -1;
+        var currentAdjacentVertexIndex = 0;
+        while(adjacencyList.get(vertexIndex).get(currentAdjacentVertexIndex).getDestination() != vertices.get(currentEdge))
+        {
+            currentAdjacentVertexIndex++;
+        }
+        currentAdjacentVertexIndex++;
+        if(adjacencyList.get(vertexIndex).size() > currentAdjacentVertexIndex)
+        {
+            return vertices.indexOf(adjacencyList.get(vertexIndex).get(currentAdjacentVertexIndex).getDestination());
+        }
         else
-            return currentEdge+1;
+        {
+            return -1;
+        }
     }
 
 
     @Override
     public String toString() {
         var s = new StringBuilder();
-        for (var i = 0; i < numberOfVertices; i++) {
+        for (var i = 0; i < numberOfVertices; i++)
+        {
             s.append(i).append(": ");
             for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
@@ -142,7 +157,8 @@ public class DigraphList extends AbstractGraph
     {
         MutableGraph g = mutGraph("example1Digraph").setDirected(true);
 
-        for (var i = 0; i < numberOfVertices; i++) {
+        for (var i = 0; i < numberOfVertices; i++)
+        {
             for (var j = 0; j < adjacencyList.get(i).size(); ++j)
             {
                 int destinationIndex = vertices.indexOf(adjacencyList.get(i).get(j).getDestination());

@@ -17,4 +17,12 @@ public class Vertex
     {
         this.name = name;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Vertex{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
