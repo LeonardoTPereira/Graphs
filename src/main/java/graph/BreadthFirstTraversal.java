@@ -9,9 +9,9 @@ public final class BreadthFirstTraversal implements TraversalStrategyInterface
     @Override
     public String traverseGraph(AbstractGraph g, Vertex source)
     {
-        var visited = new float[g.numberOfVertices];
+        var visited = new float[g.getNumberOfVertices()];
         Arrays.fill(visited, -1);
-        visited[g.vertices.indexOf(source)] = 0;
+        visited[g.getVertices().indexOf(source)] = 0;
         Queue<Vertex> vertexesToVisit = new LinkedList<>();
         vertexesToVisit.add(source);
         var visitedPath = new StringBuilder();
@@ -22,14 +22,16 @@ public final class BreadthFirstTraversal implements TraversalStrategyInterface
             if (currentVisitedVertex != null)
             {
                 visitedPath.append(currentVisitedVertex).append(' ').
-                        append("Distance: ").append(visited[g.vertices.indexOf(currentVisitedVertex)]).append(' ');
+                        append("Distance: ").append(visited[g.getVertices().indexOf(currentVisitedVertex)]).append(' ');
                 int adjacentVertexIndex = g.getFirstConnectedVertexIndex(currentVisitedVertex);
                 while(adjacentVertexIndex != -1)
                 {
                     if(visited[adjacentVertexIndex] < 0)
                     {
-                        visited[adjacentVertexIndex] = visited[g.vertices.indexOf(currentVisitedVertex)] + g.getDistance(currentVisitedVertex, g.vertices.get(adjacentVertexIndex));
-                        vertexesToVisit.add(g.vertices.get(adjacentVertexIndex));
+                        float previousWeight = visited[g.getVertices().indexOf(currentVisitedVertex)];
+                        float newWeight = g.getDistance(currentVisitedVertex, g.getVertices().get(adjacentVertexIndex));
+                        visited[adjacentVertexIndex] = previousWeight + newWeight;
+                        vertexesToVisit.add(g.getVertices().get(adjacentVertexIndex));
                     }
                     adjacentVertexIndex = g.getNextConnectedVertexIndex(currentVisitedVertex, adjacentVertexIndex);
                 }

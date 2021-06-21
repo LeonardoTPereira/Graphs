@@ -22,28 +22,42 @@ public final class GraphController
         AbstractGraph g = new DigraphMatrix( vertices );
         createTest(g);
         printTest(g, "MatrixDigraph");
-        var traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        var traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
         traversalPath = "\n"+ traversalPath +"\n";
         LOGGER.info(traversalPath);
 
         g = new GraphMatrix(vertices);
         createTest(g);
         printTest(g, "MatrixGraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
         traversalPath = "\n"+ traversalPath +"\n";
         LOGGER.info(traversalPath);
 
         g = new DigraphList(vertices);
         createTest(g);
         printTest(g, "ListDigraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
         traversalPath = "\n"+ traversalPath +"\n";
         LOGGER.info(traversalPath);
 
         g = new GraphList(vertices);
         createTest(g);
         printTest(g, "ListGraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.vertices.get(0));
+        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
+        traversalPath = "\n"+ traversalPath +"\n";
+        LOGGER.info(traversalPath);
+
+        g = new DigraphMap(vertices);
+        createTest(g);
+        printTest(g, "MapDigraph");
+        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
+        traversalPath = "\n"+ traversalPath +"\n";
+        LOGGER.info(traversalPath);
+
+        g = new GraphMap(vertices);
+        createTest(g);
+        printTest(g, "MapGraph");
+        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
         traversalPath = "\n"+ traversalPath +"\n";
         LOGGER.info(traversalPath);
 
@@ -71,14 +85,14 @@ public final class GraphController
 
     private static void createTest(AbstractGraph g)
     {
-        g.addEdge(g.vertices.get(0), g.vertices.get(1));
-        g.addEdge(g.vertices.get(0), g.vertices.get(2));
-        g.addEdge(g.vertices.get(1), g.vertices.get(2));
-        g.addEdge(g.vertices.get(2), g.vertices.get(0));
-        g.addEdge(g.vertices.get(2), g.vertices.get(3));
-        g.addEdge(g.vertices.get(3), g.vertices.get(4));
-        g.addEdge(g.vertices.get(4), g.vertices.get(5));
-        g.addEdge(g.vertices.get(5), g.vertices.get(6));
-        g.addEdge(g.vertices.get(5), g.vertices.get(0));
+        g.addEdge(g.getVertices().get(0), g.getVertices().get(1));
+        g.addEdge(g.getVertices().get(0), g.getVertices().get(2));
+        g.addEdge(g.getVertices().get(1), g.getVertices().get(2));
+        g.addEdge(g.getVertices().get(2), g.getVertices().get(0));
+        g.addEdge(g.getVertices().get(2), g.getVertices().get(3));
+        g.addEdge(g.getVertices().get(3), g.getVertices().get(4));
+        g.addEdge(g.getVertices().get(4), g.getVertices().get(5));
+        g.addEdge(g.getVertices().get(5), g.getVertices().get(6));
+        g.addEdge(g.getVertices().get(5), g.getVertices().get(0));
     }
 }

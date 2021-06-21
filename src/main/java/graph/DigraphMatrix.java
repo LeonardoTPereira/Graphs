@@ -9,10 +9,14 @@ import guru.nidi.graphviz.model.MutableGraph;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DigraphMatrix extends AbstractGraph
 {
     private Edge[][] adjacencyMatrix;
+
+    private static final Logger LOGGER = Logger.getLogger("DigraphMatrix.class");
 
     public DigraphMatrix(List<Vertex> vertices)
     {
@@ -22,10 +26,10 @@ public class DigraphMatrix extends AbstractGraph
 
     private void initializeAdjacencyMatrix()
     {
-        setAdjacencyMatrix(new Edge[numberOfVertices][numberOfVertices]);
-        for (var i = 0; i < numberOfVertices; i++)
+        setAdjacencyMatrix(new Edge[getNumberOfVertices()][getNumberOfVertices()]);
+        for (var i = 0; i < getNumberOfVertices(); i++)
         {
-            for (var j = 0; j < numberOfVertices; j++)
+            for (var j = 0; j < getNumberOfVertices(); j++)
             {
                 getAdjacencyMatrix()[i][j] = null;
             }
@@ -49,15 +53,15 @@ public class DigraphMatrix extends AbstractGraph
     {
         if(!edgeExists(source, destination))
         {
-            getAdjacencyMatrix()[vertices.indexOf(source)][vertices.indexOf(destination)] = new Edge(1);
+            getAdjacencyMatrix()[getVertices().indexOf(source)][getVertices().indexOf(destination)] = new Edge(1);
         }
     }
 
     @Override
     public void removeEdge(Vertex source, Vertex destination)
     {
-        int sourceIndex = vertices.indexOf(source);
-        int destinationIndex = vertices.indexOf(destination);
+        int sourceIndex = getVertices().indexOf(source);
+        int destinationIndex = getVertices().indexOf(destination);
         if(edgeExists(source, destination))
         {
             getAdjacencyMatrix()[sourceIndex][destinationIndex] = null;
@@ -67,16 +71,16 @@ public class DigraphMatrix extends AbstractGraph
     @Override
     public boolean edgeExists(Vertex source, Vertex destination)
     {
-        int sourceIndex = vertices.indexOf(source);
-        int destinationIndex = vertices.indexOf(destination);
+        int sourceIndex = getVertices().indexOf(source);
+        int destinationIndex = getVertices().indexOf(destination);
         return getAdjacencyMatrix()[sourceIndex][destinationIndex] != null;
     }
 
     @Override
     public boolean hasAnyEdge(Vertex vertex)
     {
-        int vertexIndex = vertices.indexOf(vertex);
-        for (var i = 0; i < numberOfVertices; i++)
+        int vertexIndex = getVertices().indexOf(vertex);
+        for (var i = 0; i < getNumberOfVertices(); i++)
         {
             if(getAdjacencyMatrix()[vertexIndex][i] != null)
             {
@@ -96,7 +100,7 @@ public class DigraphMatrix extends AbstractGraph
         else
         {
             var currentVertexIndex = 0;
-            while(!edgeExists(vertex, vertices.get(currentVertexIndex)))
+            while(!edgeExists(vertex, getVertices().get(currentVertexIndex)))
             {
                 currentVertexIndex++;
             }
@@ -107,9 +111,9 @@ public class DigraphMatrix extends AbstractGraph
     @Override
     public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
     {
-        for (int i = (currentEdge+1); i < numberOfVertices; i++)
+        for (int i = (currentEdge+1); i < getNumberOfVertices(); i++)
         {
-            if(edgeExists(vertex, vertices.get(i)))
+            if(edgeExists(vertex, getVertices().get(i)))
             {
                 return i;
             }
@@ -120,12 +124,12 @@ public class DigraphMatrix extends AbstractGraph
     @Override
     public String toString() {
         var s = new StringBuilder();
-        for (var i = 0; i < numberOfVertices; i++)
+        for (var i = 0; i < getNumberOfVertices(); i++)
         {
             s.append(i).append(": ");
-            for (var j = 0; j < numberOfVertices; ++j)
+            for (var j = 0; j < getNumberOfVertices(); ++j)
             {
-                if(edgeExists(vertices.get(i), vertices.get(j)))
+                if(edgeExists(getVertices().get(i), getVertices().get(j)))
                 {
                     s.append(getAdjacencyMatrix()[i][j].getWeight()).append(" ");
                 }
@@ -144,13 +148,13 @@ public class DigraphMatrix extends AbstractGraph
     {
         MutableGraph g = mutGraph("example1Digraph").setDirected(true);
 
-        for (var i = 0; i < numberOfVertices; ++i)
+        for (var i = 0; i < getNumberOfVertices(); ++i)
         {
-            for (var j = 0; j < numberOfVertices; ++j)
+            for (var j = 0; j < getNumberOfVertices(); ++j)
             {
-                if(edgeExists(vertices.get(i), vertices.get(j)))
+                if(edgeExists(getVertices().get(i), getVertices().get(j)))
                 {
-                    g.add(mutNode(vertices.get(i).getName()).addLink(vertices.get(j).getName()));
+                    g.add(mutNode(getVertices().get(i).getName()).addLink(getVertices().get(j).getName()));
                 }
             }
         }
@@ -160,14 +164,14 @@ public class DigraphMatrix extends AbstractGraph
         }
         catch ( IOException e )
         {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "IO Exception thrown when saving Graphviz file", e);
         }
     }
 
     @Override
     public float getDistance(Vertex source, Vertex destination)
     {
-        return adjacencyMatrix[vertices.indexOf(source)][vertices.indexOf(destination)].getWeight();
+        return adjacencyMatrix[getVertices().indexOf(source)][getVertices().indexOf(destination)].getWeight();
     }
 
     public Edge[][] getAdjacencyMatrix()

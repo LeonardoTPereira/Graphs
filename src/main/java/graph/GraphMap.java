@@ -2,9 +2,9 @@ package graph;
 
 import java.util.List;
 
-public class GraphList extends DigraphList
+public class GraphMap extends DigraphMap
 {
-    public GraphList(List<Vertex> vertices)
+    public GraphMap(List<Vertex> vertices)
     {
         super(vertices);
     }
@@ -39,7 +39,6 @@ public class GraphList extends DigraphList
     @Override
     public boolean hasAnyEdge(Vertex vertex)
     {
-        int vertexIndex = getVertices().indexOf(vertex);
-        return !getAdjacencyList().get(vertexIndex).isEmpty();
+        return !getAdjacencyMap().get(vertex).isEmpty();
     }
 }
