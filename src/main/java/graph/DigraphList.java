@@ -112,35 +112,35 @@ public class DigraphList extends AbstractGraph
     }
 
     @Override
-    public int getFirstConnectedVertexIndex(Vertex vertex)
+    public Vertex getFirstConnectedVertex(Vertex vertex)
     {
         if(getAdjacencyList().get(getVertices().indexOf(vertex)).isEmpty())
         {
-            return -1;
+            return null;
         }
         else
         {
-            return getVertices().indexOf(getAdjacencyList().get(getVertices().indexOf(vertex)).get(0).getDestination());
+            return getAdjacencyList().get(getVertices().indexOf(vertex)).get(0).getDestination();
         }
     }
 
     @Override
-    public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
+    public Vertex getNextConnectedVertex(Vertex source, Vertex currentConnection)
     {
-        int vertexIndex = getVertices().indexOf(vertex);
+        int vertexIndex = getVertices().indexOf(source);
         var currentAdjacentVertexIndex = 0;
-        while(getAdjacencyList().get(vertexIndex).get(currentAdjacentVertexIndex).getDestination() != getVertices().get(currentEdge))
+        while(getAdjacencyList().get(vertexIndex).get(currentAdjacentVertexIndex).getDestination() != currentConnection)
         {
             currentAdjacentVertexIndex++;
         }
         currentAdjacentVertexIndex++;
         if(getAdjacencyList().get(vertexIndex).size() > currentAdjacentVertexIndex)
         {
-            return getVertices().indexOf(getAdjacencyList().get(vertexIndex).get(currentAdjacentVertexIndex).getDestination());
+            return getAdjacencyList().get(vertexIndex).get(currentAdjacentVertexIndex).getDestination();
         }
         else
         {
-            return -1;
+            return null;
         }
     }
 

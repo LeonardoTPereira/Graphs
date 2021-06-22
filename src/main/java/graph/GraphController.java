@@ -17,49 +17,41 @@ public final class GraphController
     {
         var vertices = createVertexList();
 
-        TraversalStrategyInterface traversalStrategy = new BreadthFirstTraversal();
 
         AbstractGraph g = new DigraphMatrix( vertices );
         createTest(g);
+
+        TraversalStrategyInterface traversalStrategy = new BreadthFirstTraversal(g);
+
         printTest(g, "MatrixDigraph");
-        var traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
-        traversalPath = "\n"+ traversalPath +"\n";
-        LOGGER.info(traversalPath);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
+
 
         g = new GraphMatrix(vertices);
         createTest(g);
         printTest(g, "MatrixGraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
-        traversalPath = "\n"+ traversalPath +"\n";
-        LOGGER.info(traversalPath);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
+
 
         g = new DigraphList(vertices);
         createTest(g);
         printTest(g, "ListDigraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
-        traversalPath = "\n"+ traversalPath +"\n";
-        LOGGER.info(traversalPath);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
 
         g = new GraphList(vertices);
         createTest(g);
         printTest(g, "ListGraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
-        traversalPath = "\n"+ traversalPath +"\n";
-        LOGGER.info(traversalPath);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
 
         g = new DigraphMap(vertices);
         createTest(g);
         printTest(g, "MapDigraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
-        traversalPath = "\n"+ traversalPath +"\n";
-        LOGGER.info(traversalPath);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
 
         g = new GraphMap(vertices);
         createTest(g);
         printTest(g, "MapGraph");
-        traversalPath = traversalStrategy.traverseGraph(g, g.getVertices().get(0));
-        traversalPath = "\n"+ traversalPath +"\n";
-        LOGGER.info(traversalPath);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
 
     }
 

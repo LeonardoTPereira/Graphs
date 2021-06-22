@@ -1,42 +1,62 @@
 package graph;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public final class BreadthFirstTraversal implements TraversalStrategyInterface
+public final class BreadthFirstTraversal extends TraversalStrategyInterface
 {
-    @Override
-    public String traverseGraph(AbstractGraph g, Vertex source)
+
+    public BreadthFirstTraversal(AbstractGraph graph)
     {
-        var visited = new float[g.getNumberOfVertices()];
-        Arrays.fill(visited, -1);
-        visited[g.getVertices().indexOf(source)] = 0;
+        super(graph);
+    }
+
+    @Override
+    public void traverseGraph(Vertex source)
+    {
+        int sourceIndex = getGraph().getVertices().indexOf(source);
+        markVertexAsVisited(sourceIndex);
+        setDistanceToVertex(sourceIndex, 0);
+        setPredecessorVertexIndex(sourceIndex, -1);
+
         Queue<Vertex> vertexesToVisit = new LinkedList<>();
         vertexesToVisit.add(source);
-        var visitedPath = new StringBuilder();
+
         Vertex currentVisitedVertex;
+        int currentVisitedVertexIndex;
         while(!vertexesToVisit.isEmpty())
         {
             currentVisitedVertex = vertexesToVisit.poll();
+            currentVisitedVertexIndex = getGraph().getVertices().indexOf(currentVisitedVertex);
             if (currentVisitedVertex != null)
             {
-                visitedPath.append(currentVisitedVertex).append(' ').
-                        append("Distance: ").append(visited[g.getVertices().indexOf(currentVisitedVertex)]).append(' ');
-                int adjacentVertexIndex = g.getFirstConnectedVertexIndex(currentVisitedVertex);
-                while(adjacentVertexIndex != -1)
+
+                var adjacentVertex = getGraph().getFirstConnectedVertex(currentVisitedVertex);
+                while(adjacentVertex != null)
                 {
-                    if(visited[adjacentVertexIndex] < 0)
+                    int adjacentVertexIndex = getGraph().getVertices().indexOf(adjacentVertex);
+                    if(!hasVertexBeenVisited(adjacentVertexIndex))
                     {
-                        float previousWeight = visited[g.getVertices().indexOf(currentVisitedVertex)];
-                        float newWeight = g.getDistance(currentVisitedVertex, g.getVertices().get(adjacentVertexIndex));
-                        visited[adjacentVertexIndex] = previousWeight + newWeight;
-                        vertexesToVisit.add(g.getVertices().get(adjacentVertexIndex));
+                        updateTraversalInfoForVertex(adjacentVertexIndex, currentVisitedVertexIndex);
+                        vertexesToVisit.add(adjacentVertex);
                     }
-                    adjacentVertexIndex = g.getNextConnectedVertexIndex(currentVisitedVertex, adjacentVertexIndex);
+                    adjacentVertex = getGraph().getNextConnectedVertex(currentVisitedVertex, adjacentVertex);
                 }
             }
         }
-        return visitedPath.toString();
+        printPath(sourceIndex);
     }
+
+    private void updateTraversalInfoForVertex(int newVertexIndex, int previousVertexIndex)
+    {
+        var newVertex = getGraph().getVertices().get(newVertexIndex);
+        var oldVertex = getGraph().getVertices().get(previousVertexIndex);
+        float newDistance = getGraph().getDistance(oldVertex, newVertex);
+        float distance = getDistanceToVertex(previousVertexIndex) + newDistance;
+        markVertexAsVisited(newVertexIndex);
+        setDistanceToVertex(newVertexIndex,  distance);
+        setPredecessorVertexIndex(newVertexIndex, previousVertexIndex);
+        setSuccessorVertexIndex(previousVertexIndex, newVertexIndex);
+    }
+
 }

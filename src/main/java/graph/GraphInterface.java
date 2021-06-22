@@ -12,9 +12,9 @@ public interface GraphInterface
 
     boolean hasAnyEdge(Vertex vertex);
 
-    int getFirstConnectedVertexIndex(Vertex vertex);
+    Vertex getFirstConnectedVertex(Vertex vertex);
 
-    int getNextConnectedVertexIndex(Vertex vertex, int currentEdge);
+    Vertex getNextConnectedVertex(Vertex source, Vertex currentConnection);
 
     String toString();
 

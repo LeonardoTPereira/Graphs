@@ -121,34 +121,34 @@ public class DigraphMap extends AbstractGraph
     }
 
     @Override
-    public int getFirstConnectedVertexIndex(Vertex vertex)
+    public Vertex getFirstConnectedVertex(Vertex vertex)
     {
         if(!getAdjacencyMap().containsKey(vertex))
         {
-            return -1;
+            return null;
         }
         else
         {
-            return getVertices().indexOf(getAdjacencyMap().get(vertex).get(0).getDestination());
+            return getAdjacencyMap().get(vertex).get(0).getDestination();
         }
     }
 
     @Override
-    public int getNextConnectedVertexIndex(Vertex vertex, int currentEdge)
+    public Vertex getNextConnectedVertex(Vertex source, Vertex currentConnection)
     {
         var currentAdjacentVertexIndex = 0;
-        while(getAdjacencyMap().get(vertex).get(currentAdjacentVertexIndex).getDestination() != getVertices().get(currentEdge))
+        while(getAdjacencyMap().get(source).get(currentAdjacentVertexIndex).getDestination() != currentConnection)
         {
             currentAdjacentVertexIndex++;
         }
         currentAdjacentVertexIndex++;
-        if(getAdjacencyMap().get(vertex).size() > currentAdjacentVertexIndex)
+        if(getAdjacencyMap().get(source).size() > currentAdjacentVertexIndex)
         {
-            return getVertices().indexOf(getAdjacencyMap().get(vertex).get(currentAdjacentVertexIndex).getDestination());
+            return getAdjacencyMap().get(source).get(currentAdjacentVertexIndex).getDestination();
         }
         else
         {
-            return -1;
+            return null;
         }
     }
 
