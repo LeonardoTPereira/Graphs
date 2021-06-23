@@ -20,36 +20,39 @@ public final class GraphController
 
         AbstractGraph g = new DigraphMatrix( vertices );
         createTest(g);
-
-        TraversalStrategyInterface traversalStrategy = new BreadthFirstTraversal(g);
-
+        TraversalStrategyInterface traversalStrategy = new DijkstraTraversal(g);
         printTest(g, "MatrixDigraph");
         traversalStrategy.traverseGraph(g.getVertices().get(0));
 
 
         g = new GraphMatrix(vertices);
         createTest(g);
+        traversalStrategy = new DijkstraTraversal(g);
         printTest(g, "MatrixGraph");
         traversalStrategy.traverseGraph(g.getVertices().get(0));
 
 
         g = new DigraphList(vertices);
         createTest(g);
+        traversalStrategy = new DijkstraTraversal(g);
         printTest(g, "ListDigraph");
         traversalStrategy.traverseGraph(g.getVertices().get(0));
 
         g = new GraphList(vertices);
         createTest(g);
+        traversalStrategy = new DijkstraTraversal(g);
         printTest(g, "ListGraph");
         traversalStrategy.traverseGraph(g.getVertices().get(0));
 
         g = new DigraphMap(vertices);
         createTest(g);
+        traversalStrategy = new DijkstraTraversal(g);
         printTest(g, "MapDigraph");
         traversalStrategy.traverseGraph(g.getVertices().get(0));
 
         g = new GraphMap(vertices);
         createTest(g);
+        traversalStrategy = new DijkstraTraversal(g);
         printTest(g, "MapGraph");
         traversalStrategy.traverseGraph(g.getVertices().get(0));
 
@@ -77,14 +80,14 @@ public final class GraphController
 
     private static void createTest(AbstractGraph g)
     {
-        g.addEdge(g.getVertices().get(0), g.getVertices().get(1));
-        g.addEdge(g.getVertices().get(0), g.getVertices().get(2));
-        g.addEdge(g.getVertices().get(1), g.getVertices().get(2));
-        g.addEdge(g.getVertices().get(2), g.getVertices().get(0));
-        g.addEdge(g.getVertices().get(2), g.getVertices().get(3));
-        g.addEdge(g.getVertices().get(3), g.getVertices().get(4));
-        g.addEdge(g.getVertices().get(4), g.getVertices().get(5));
-        g.addEdge(g.getVertices().get(5), g.getVertices().get(6));
-        g.addEdge(g.getVertices().get(5), g.getVertices().get(0));
+        g.addEdge(g.getVertices().get(0), g.getVertices().get(1), 2);
+        g.addEdge(g.getVertices().get(0), g.getVertices().get(2), 5);
+        g.addEdge(g.getVertices().get(1), g.getVertices().get(2), 2);
+        g.addEdge(g.getVertices().get(2), g.getVertices().get(0), 3);
+        g.addEdge(g.getVertices().get(2), g.getVertices().get(3), 7);
+        g.addEdge(g.getVertices().get(3), g.getVertices().get(4), 6);
+        g.addEdge(g.getVertices().get(4), g.getVertices().get(5), 2);
+        g.addEdge(g.getVertices().get(5), g.getVertices().get(6), 1);
+        g.addEdge(g.getVertices().get(5), g.getVertices().get(0), 3);
     }
 }

@@ -1,5 +1,6 @@
 package graph;
 
+import guru.nidi.graphviz.attribute.Label;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
@@ -13,8 +14,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static guru.nidi.graphviz.model.Factory.mutGraph;
-import static guru.nidi.graphviz.model.Factory.mutNode;
+import static guru.nidi.graphviz.model.Factory.*;
 
 public class DigraphMap extends AbstractGraph
 {
@@ -56,7 +56,7 @@ public class DigraphMap extends AbstractGraph
     }
 
     @Override
-    public void addEdge(Vertex source, Vertex destination)
+    public void addEdge(Vertex source, Vertex destination, float weight)
     {
         if(!edgeExists(source, destination))
         {
@@ -64,7 +64,7 @@ public class DigraphMap extends AbstractGraph
             {
                 getAdjacencyMap().put(source, new ArrayList<>());
             }
-            getAdjacencyMap().get(source).add(new Edge(destination, 1));
+            getAdjacencyMap().get(source).add(new Edge(destination, weight));
         }
     }
 
@@ -177,7 +177,8 @@ public class DigraphMap extends AbstractGraph
             for (var j = 0; j < pair.getValue().size(); ++j)
             {
                 int destinationIndex = getVertices().indexOf(pair.getValue().get(j).getDestination());
-                g.add(mutNode(pair.getKey().getName()).addLink(getVertices().get(destinationIndex).getName()));
+                float weight = pair.getValue().get(j).getWeight();
+                g.add(mutNode(pair.getKey().getName()).addLink(to((mutNode(getVertices().get(destinationIndex).getName()))).add(Label.of(String.valueOf(weight)))));
             }
         }
         try

@@ -58,7 +58,7 @@ public abstract class TraversalStrategyInterface
         visitedVertices = new boolean[graph.getNumberOfVertices()];
         Arrays.fill(visitedVertices, false);
         distanceToVertices = new float[graph.getNumberOfVertices()];
-        Arrays.fill(distanceToVertices, Float.NEGATIVE_INFINITY);
+        Arrays.fill(distanceToVertices, Float.POSITIVE_INFINITY);
         predecessorVertexIndices = new int[graph.getNumberOfVertices()];
         Arrays.fill(predecessorVertexIndices, -1);
         successorVertexIndices = new int[graph.getNumberOfVertices()];
@@ -89,5 +89,32 @@ public abstract class TraversalStrategyInterface
         }while(currentIndex > 0);
         var traversalPath = "\n"+ visitedPath +"\n";
         LOGGER.info(traversalPath);
+    }
+
+    protected void printShortestPath(Vertex source, Vertex destination)
+    {
+        int sourceIndex = graph.getVertices().indexOf(source);
+        int destinationIndex = graph.getVertices().indexOf(destination);
+        var shortestPath = new StringBuilder();
+        int currentIndex = destinationIndex;
+        do
+        {
+            shortestPath.append(graph.getVertices().get(currentIndex)).append('-');
+            currentIndex = getPredecessorVertexIndex(currentIndex);
+        }while(currentIndex != sourceIndex);
+        shortestPath.append(graph.getVertices().get(currentIndex));
+        var traversalPath = "\n"+ shortestPath +"\n";
+        LOGGER.info(traversalPath);
+    }
+
+    protected void printDistances()
+    {
+        var distanceString = new StringBuilder();
+        for (var i = 0; i < distanceToVertices.length; i++)
+        {
+            distanceString.append(i).append(": ").append(getGraph().getVertices().get(i)).append(" - ").append(getDistanceToVertex(i)).append("\n");
+        }
+        var finalString = distanceString.toString();
+        LOGGER.info(finalString);
     }
 }

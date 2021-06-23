@@ -22,10 +22,10 @@ public class GraphMap extends DigraphMap
     }
 
     @Override
-    public void addEdge(Vertex source, Vertex destination)
+    public void addEdge(Vertex source, Vertex destination, float weight)
     {
-        super.addEdge(source, destination);
-        super.addEdge(destination, source);
+        super.addEdge(source, destination, weight);
+        super.addEdge(destination, source, weight);
     }
 
     @Override

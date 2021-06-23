@@ -35,4 +35,9 @@ public abstract class AbstractGraph implements GraphInterface
     {
         this.vertices = vertices;
     }
+
+    public void addEdge(Vertex source, Vertex destination)
+    {
+        addEdge(source, destination, 1);
+    }
 }

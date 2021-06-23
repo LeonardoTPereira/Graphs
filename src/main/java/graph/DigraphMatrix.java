@@ -1,8 +1,6 @@
 package graph;
 
-import static guru.nidi.graphviz.model.Factory.mutGraph;
-import static guru.nidi.graphviz.model.Factory.mutNode;
-
+import guru.nidi.graphviz.attribute.Label;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
@@ -11,6 +9,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static guru.nidi.graphviz.model.Factory.*;
 
 public class DigraphMatrix extends AbstractGraph
 {
@@ -49,11 +49,11 @@ public class DigraphMatrix extends AbstractGraph
     }
 
     @Override
-    public void addEdge(Vertex source, Vertex destination)
+    public void addEdge(Vertex source, Vertex destination, float weight)
     {
         if(!edgeExists(source, destination))
         {
-            getAdjacencyMatrix()[getVertices().indexOf(source)][getVertices().indexOf(destination)] = new Edge(1);
+            getAdjacencyMatrix()[getVertices().indexOf(source)][getVertices().indexOf(destination)] = new Edge(weight);
         }
     }
 
@@ -157,7 +157,8 @@ public class DigraphMatrix extends AbstractGraph
             {
                 if(edgeExists(getVertices().get(i), getVertices().get(j)))
                 {
-                    g.add(mutNode(getVertices().get(i).getName()).addLink(getVertices().get(j).getName()));
+                    float weight = adjacencyMatrix[i][j].getWeight();
+                    g.add(mutNode(getVertices().get(i).getName()).addLink(to((mutNode(getVertices().get(j).getName()))).add(Label.of(String.valueOf(weight)))));
                 }
             }
         }
