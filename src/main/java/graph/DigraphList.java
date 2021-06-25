@@ -203,6 +203,6 @@ public class DigraphList extends AbstractGraph
                 return adjacencyList.get(sourceIndex).get(i).getWeight();
             }
         }
-        return -1;
+        return Float.POSITIVE_INFINITY;
     }
 }

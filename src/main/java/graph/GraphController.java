@@ -8,54 +8,36 @@ public final class GraphController
 {
     private static final Logger LOGGER = Logger.getLogger("GraphController.class");
 
+    private AbstractGraph g;
+    private TraversalStrategyInterface traversalStrategy;
+    private final List<Vertex> vertices;
+
     private GraphController()
     {
-
+        vertices = createVertexList();
     }
 
     public static void main(String[] args)
     {
-        var vertices = createVertexList();
+        var graphController = new GraphController();
 
+        graphController.g = new DigraphMatrix(graphController.vertices);
+        graphController.test("MatrixDigraph");
 
-        AbstractGraph g = new DigraphMatrix( vertices );
-        createTest(g);
-        TraversalStrategyInterface traversalStrategy = new DijkstraTraversal(g);
-        printTest(g, "MatrixDigraph");
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
+        graphController.g = new GraphMatrix(graphController.vertices);
+        graphController.test("MatrixGraph");
 
+        graphController.g = new DigraphList(graphController.vertices);
+        graphController.test("ListDigraph");
 
-        g = new GraphMatrix(vertices);
-        createTest(g);
-        traversalStrategy = new DijkstraTraversal(g);
-        printTest(g, "MatrixGraph");
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
+        graphController.g = new GraphList(graphController.vertices);
+        graphController.test("ListGraph");
 
+        graphController.g = new DigraphMap(graphController.vertices);
+        graphController.test("MapDigraph");
 
-        g = new DigraphList(vertices);
-        createTest(g);
-        traversalStrategy = new DijkstraTraversal(g);
-        printTest(g, "ListDigraph");
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
-
-        g = new GraphList(vertices);
-        createTest(g);
-        traversalStrategy = new DijkstraTraversal(g);
-        printTest(g, "ListGraph");
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
-
-        g = new DigraphMap(vertices);
-        createTest(g);
-        traversalStrategy = new DijkstraTraversal(g);
-        printTest(g, "MapDigraph");
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
-
-        g = new GraphMap(vertices);
-        createTest(g);
-        traversalStrategy = new DijkstraTraversal(g);
-        printTest(g, "MapGraph");
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
-
+        graphController.g = new GraphMap(graphController.vertices);
+        graphController.test("MapGraph");
     }
 
     private static List<Vertex> createVertexList()
@@ -71,14 +53,27 @@ public final class GraphController
         return vertices;
     }
 
-    private static void printTest(AbstractGraph g, String fileName)
+    private void test(String fileName)
+    {
+        createTest();
+        printTest(fileName);
+    }
+
+    private void printTest(String fileName)
     {
         var graphString = "\n"+ g +"\n";
         LOGGER.info(graphString);
         g.printInGraphViz(fileName);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
+        if(traversalStrategy instanceof FloydWarshallTraversal)
+        {
+            var center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());
+            var centerVertexString = "\n"+ center +"\n";
+            LOGGER.info(centerVertexString);
+        }
     }
 
-    private static void createTest(AbstractGraph g)
+    private void createTest()
     {
         g.addEdge(g.getVertices().get(0), g.getVertices().get(1), 2);
         g.addEdge(g.getVertices().get(0), g.getVertices().get(2), 5);
@@ -89,5 +84,7 @@ public final class GraphController
         g.addEdge(g.getVertices().get(4), g.getVertices().get(5), 2);
         g.addEdge(g.getVertices().get(5), g.getVertices().get(6), 1);
         g.addEdge(g.getVertices().get(5), g.getVertices().get(0), 3);
+
+        traversalStrategy = new FloydWarshallTraversal(g);
     }
 }

@@ -194,13 +194,16 @@ public class DigraphMap extends AbstractGraph
     @Override
     public float getDistance(Vertex source, Vertex destination)
     {
-        for(var i = 0; i < getAdjacencyMap().get(source).size(); i++)
+        if(getAdjacencyMap().containsKey(source))
         {
-            if(getAdjacencyMap().get(source).get(i).getDestination() == destination)
+            for (var i = 0; i < getAdjacencyMap().get(source).size(); i++)
             {
-                return getAdjacencyMap().get(source).get(i).getWeight();
+                if (getAdjacencyMap().get(source).get(i).getDestination() == destination)
+                {
+                    return getAdjacencyMap().get(source).get(i).getWeight();
+                }
             }
         }
-        return -1;
+        return Float.POSITIVE_INFINITY;
     }
 }
