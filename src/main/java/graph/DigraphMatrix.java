@@ -177,9 +177,13 @@ public class DigraphMatrix extends AbstractGraph
     {
         var edge = adjacencyMatrix[getVertices().indexOf(source)][getVertices().indexOf(destination)];
         if(edge != null)
+        {
             return edge.getWeight();
+        }
         else
+        {
             return Float.POSITIVE_INFINITY;
+        }
     }
 
     public Edge[][] getAdjacencyMatrix()
