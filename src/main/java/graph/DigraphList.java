@@ -16,6 +16,7 @@ import static guru.nidi.graphviz.model.Factory.*;
 
 public class DigraphList extends AbstractGraph
 {
+
     private List<List<Edge>> adjacencyList;
 
     private static final Logger LOGGER = Logger.getLogger("DigraphList.class");
