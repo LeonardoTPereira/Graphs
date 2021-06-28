@@ -64,7 +64,6 @@ public final class GraphController
         var graphString = "\n"+ g +"\n";
         LOGGER.info(graphString);
         g.printInGraphViz(fileName);
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
         if(traversalStrategy instanceof FloydWarshallTraversal)
         {
             var center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());
@@ -86,5 +85,6 @@ public final class GraphController
         g.addEdge(g.getVertices().get(5), g.getVertices().get(0), 3);
 
         traversalStrategy = new FloydWarshallTraversal(g);
+        traversalStrategy.traverseGraph(g.getVertices().get(0));
     }
 }
