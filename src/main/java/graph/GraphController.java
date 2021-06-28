@@ -85,6 +85,6 @@ public final class GraphController
         g.addEdge(g.getVertices().get(5), g.getVertices().get(6), 1);
         g.addEdge(g.getVertices().get(5), g.getVertices().get(0), 3);
 
-        traversalStrategy = new FloydWarshallTraversal(g);
+        traversalStrategy = new BreadthFirstTraversal(g);
     }
 }

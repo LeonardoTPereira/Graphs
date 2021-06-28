@@ -1,6 +1,8 @@
 package graph;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class TraversalStrategyInterface
@@ -11,6 +13,7 @@ public abstract class TraversalStrategyInterface
     private float[] distanceToVertices;
     private int[] predecessorVertexIndices;
     private int[] successorVertexIndices;
+    private List<Vertex> traversalPath;
 
     public void markVertexAsVisited(int vertexIndex)
     {
@@ -63,6 +66,7 @@ public abstract class TraversalStrategyInterface
         Arrays.fill(predecessorVertexIndices, -1);
         successorVertexIndices = new int[graph.getNumberOfVertices()];
         Arrays.fill(successorVertexIndices, -1);
+        traversalPath = new LinkedList<>();
     }
 
     abstract void traverseGraph(Vertex source);
@@ -77,18 +81,16 @@ public abstract class TraversalStrategyInterface
         this.graph = graph;
     }
 
-    protected void printPath(int sourceIndex)
+    protected void printPath()
     {
         var visitedPath = new StringBuilder();
-        int currentIndex = sourceIndex;
-        do
+        for (Vertex vertex : traversalPath)
         {
-            visitedPath.append(getGraph().getVertices().get(currentIndex)).append(' ').
-                    append("Distance: ").append(getDistanceToVertex(currentIndex)).append(' ');
-            currentIndex = getSuccessorVertexIndex(currentIndex);
-        }while(currentIndex > 0);
-        var traversalPath = "\n"+ visitedPath +"\n";
-        LOGGER.info(traversalPath);
+            visitedPath.append(vertex).append(' ').
+                    append("Distance: ").append(getDistanceToVertex(getGraph().getVertices().indexOf(vertex))).append(' ');
+        }
+        var traversalPathString = "\n"+ visitedPath +"\n";
+        LOGGER.info(traversalPathString);
     }
 
     protected void printShortestPath(Vertex source, Vertex destination)
@@ -103,8 +105,8 @@ public abstract class TraversalStrategyInterface
             currentIndex = getPredecessorVertexIndex(currentIndex);
         }while(currentIndex != sourceIndex);
         shortestPath.append(graph.getVertices().get(currentIndex));
-        var traversalPath = "\n"+ shortestPath +"\n";
-        LOGGER.info(traversalPath);
+        var shortestPathString = "\n"+ shortestPath +"\n";
+        LOGGER.info(shortestPathString);
     }
 
     protected void printDistances()
@@ -116,5 +118,10 @@ public abstract class TraversalStrategyInterface
         }
         var finalString = distanceString.toString();
         LOGGER.info(finalString);
+    }
+
+    public void addToPath(Vertex vertex)
+    {
+        traversalPath.add(vertex);
     }
 }

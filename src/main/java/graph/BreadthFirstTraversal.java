@@ -15,6 +15,7 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
     public void traverseGraph(Vertex source)
     {
         int sourceIndex = getGraph().getVertices().indexOf(source);
+        addToPath(source);
         markVertexAsVisited(sourceIndex);
         setDistanceToVertex(sourceIndex, 0);
         setPredecessorVertexIndex(sourceIndex, -1);
@@ -43,7 +44,7 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
                 }
             }
         }
-        printPath(sourceIndex);
+        printPath();
         printShortestPath(source, getGraph().getVertices().get(getGraph().getVertices().size()-1));
     }
 
@@ -53,6 +54,7 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
         var oldVertex = getGraph().getVertices().get(previousVertexIndex);
         float newDistance = getGraph().getDistance(oldVertex, newVertex);
         float distance = getDistanceToVertex(previousVertexIndex) + newDistance;
+        addToPath(newVertex);
         markVertexAsVisited(newVertexIndex);
         setDistanceToVertex(newVertexIndex,  distance);
         setPredecessorVertexIndex(newVertexIndex, previousVertexIndex);
