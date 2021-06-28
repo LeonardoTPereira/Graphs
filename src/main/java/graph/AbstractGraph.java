@@ -44,11 +44,11 @@ public abstract class AbstractGraph implements GraphInterface
 
     public Vertex getCentermostVertex(float[][] distanceMatrix)
     {
-        var maxDistanceInCollumn = new float[distanceMatrix.length];
+        float[] maxDistanceInCollumn = new float[distanceMatrix.length];
         Arrays.fill(maxDistanceInCollumn, Float.NEGATIVE_INFINITY);
-        for (var i = 0; i < distanceMatrix.length; i++)
+        for (int i = 0; i < distanceMatrix.length; i++)
         {
-            for (var j = 0; j < distanceMatrix[0].length; j++)
+            for (int j = 0; j < distanceMatrix[0].length; j++)
             {
                 if (maxDistanceInCollumn[i] < distanceMatrix[i][j])
                 {
@@ -62,9 +62,9 @@ public abstract class AbstractGraph implements GraphInterface
 
     private int getMinDistanceIndexInCollumn(float[] distanceArray)
     {
-        var minIndex = 0;
+        int minIndex = 0;
         float minDistance = distanceArray[0];
-        for (var i = 1; i < distanceArray.length; i++)
+        for (int i = 1; i < distanceArray.length; i++)
         {
             if(minDistance > distanceArray[i])
             {

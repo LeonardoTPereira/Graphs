@@ -28,9 +28,9 @@ public class FloydWarshallTraversal extends TraversalStrategyInterface
     @Override
     void traverseGraph(Vertex source)
     {
-        for (var i = 0; i < getGraph().getNumberOfVertices(); i++)
+        for (int i = 0; i < getGraph().getNumberOfVertices(); i++)
         {
-            for (var j = 0; j < getGraph().getNumberOfVertices(); j++)
+            for (int j = 0; j < getGraph().getNumberOfVertices(); j++)
             {
                 Vertex origin = getGraph().getVertices().get(i);
                 Vertex destination = getGraph().getVertices().get(j);
@@ -38,11 +38,11 @@ public class FloydWarshallTraversal extends TraversalStrategyInterface
             }
         }
 
-        for (var k = 0; k < getGraph().getNumberOfVertices(); k++)
+        for (int k = 0; k < getGraph().getNumberOfVertices(); k++)
         {
-            for (var i = 0; i < getGraph().getNumberOfVertices(); i++)
+            for (int i = 0; i < getGraph().getNumberOfVertices(); i++)
             {
-                for (var j = 0; j < getGraph().getNumberOfVertices(); j++)
+                for (int j = 0; j < getGraph().getNumberOfVertices(); j++)
                 {
                     if((distanceMatrix[i][k] + distanceMatrix[k][j]) < distanceMatrix[i][j])
                     {
@@ -56,8 +56,8 @@ public class FloydWarshallTraversal extends TraversalStrategyInterface
 
     void printDistanceMatrix()
     {
-        var decimalFormat = new DecimalFormat("00.00");
-        var distanceMatrixStringBuilder = new StringBuilder();
+        DecimalFormat decimalFormat = new DecimalFormat("00.00");
+        StringBuilder distanceMatrixStringBuilder = new StringBuilder();
         distanceMatrixStringBuilder.append('\n');
         for (float[] row : distanceMatrix)
         {
@@ -67,7 +67,7 @@ public class FloydWarshallTraversal extends TraversalStrategyInterface
             }
             distanceMatrixStringBuilder.append('\n');
         }
-        var distanceMatrixString = distanceMatrixStringBuilder.toString();
+        String distanceMatrixString = distanceMatrixStringBuilder.toString();
         LOGGER.info(distanceMatrixString);
     }
 }

@@ -19,25 +19,25 @@ public final class GraphController
 
     public static void main(String[] args)
     {
-        var graphController = new GraphController();
+        GraphController graphController = new GraphController();
 
         graphController.g = new DigraphMatrix(graphController.vertices);
-        graphController.test("MatrixDigraph");
+        graphController.test();
 
         graphController.g = new GraphMatrix(graphController.vertices);
-        graphController.test("MatrixGraph");
+        graphController.test();
 
         graphController.g = new DigraphList(graphController.vertices);
-        graphController.test("ListDigraph");
+        graphController.test();
 
         graphController.g = new GraphList(graphController.vertices);
-        graphController.test("ListGraph");
+        graphController.test();
 
         graphController.g = new DigraphMap(graphController.vertices);
-        graphController.test("MapDigraph");
+        graphController.test();
 
         graphController.g = new GraphMap(graphController.vertices);
-        graphController.test("MapGraph");
+        graphController.test();
     }
 
     private static List<Vertex> createVertexList()
@@ -53,22 +53,21 @@ public final class GraphController
         return vertices;
     }
 
-    private void test(String fileName)
+    private void test()
     {
         createTest();
-        printTest(fileName);
+        printTest();
     }
 
-    private void printTest(String fileName)
+    private void printTest()
     {
-        var graphString = "\n"+ g +"\n";
+        String graphString = "\n"+ g +"\n";
         LOGGER.info(graphString);
-        g.printInGraphViz(fileName);
         traversalStrategy.traverseGraph(g.getVertices().get(0));
         if(traversalStrategy instanceof FloydWarshallTraversal)
         {
-            var center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());
-            var centerVertexString = "\n"+ center +"\n";
+            Vertex center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());
+            String centerVertexString = "\n"+ center +"\n";
             LOGGER.info(centerVertexString);
         }
     }

@@ -83,13 +83,13 @@ public abstract class TraversalStrategyInterface
 
     protected void printPath()
     {
-        var visitedPath = new StringBuilder();
+        StringBuilder visitedPath = new StringBuilder();
         for (Vertex vertex : traversalPath)
         {
             visitedPath.append(vertex).append(' ').
                     append("Distance: ").append(getDistanceToVertex(getGraph().getVertices().indexOf(vertex))).append(' ');
         }
-        var traversalPathString = "\n"+ visitedPath +"\n";
+        String traversalPathString = "\n"+ visitedPath +"\n";
         LOGGER.info(traversalPathString);
     }
 
@@ -97,7 +97,7 @@ public abstract class TraversalStrategyInterface
     {
         int sourceIndex = graph.getVertices().indexOf(source);
         int destinationIndex = graph.getVertices().indexOf(destination);
-        var shortestPath = new StringBuilder();
+        StringBuilder shortestPath = new StringBuilder();
         int currentIndex = destinationIndex;
         do
         {
@@ -105,18 +105,18 @@ public abstract class TraversalStrategyInterface
             currentIndex = getPredecessorVertexIndex(currentIndex);
         }while(currentIndex != sourceIndex);
         shortestPath.append(graph.getVertices().get(currentIndex));
-        var shortestPathString = "\n"+ shortestPath +"\n";
+        String shortestPathString = "\n"+ shortestPath +"\n";
         LOGGER.info(shortestPathString);
     }
 
     protected void printDistances()
     {
-        var distanceString = new StringBuilder();
-        for (var i = 0; i < distanceToVertices.length; i++)
+        StringBuilder distanceString = new StringBuilder();
+        for (int i = 0; i < distanceToVertices.length; i++)
         {
             distanceString.append(i).append(": ").append(getGraph().getVertices().get(i)).append(" - ").append(getDistanceToVertex(i)).append("\n");
         }
-        var finalString = distanceString.toString();
+        String finalString = distanceString.toString();
         LOGGER.info(finalString);
     }
 
