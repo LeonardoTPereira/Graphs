@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class AbstractGraph implements GraphInterface
 {
-    protected static final int GRAPHVIZ_IMAGE_WIDTH = 400;
+    protected static final int GRAPHVIZ_IMAGE_WIDTH = 800;
     protected static final String GRAPHVIZ_FOLDER = "example/";
     protected static final String GRAPHVIZ_FILE_EXTENSION = ".png";
     private int numberOfVertices;
@@ -73,5 +73,10 @@ public abstract class AbstractGraph implements GraphInterface
             }
         }
         return minIndex;
+    }
+
+    public int getIndexOfVertex(Vertex vertex)
+    {
+        return getVertices().indexOf(vertex);
     }
 }

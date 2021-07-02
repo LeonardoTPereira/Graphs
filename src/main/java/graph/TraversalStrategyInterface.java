@@ -124,4 +124,20 @@ public abstract class TraversalStrategyInterface
     {
         traversalPath.add(vertex);
     }
+
+    protected void printVisitTree()
+    {
+        var treeStringBuilder = new StringBuilder();
+        treeStringBuilder.append('\n');
+        treeStringBuilder.append(getGraph().getVertices().get(0).getName()).append('\n');
+        for (var i = 1; i < getGraph().getNumberOfVertices(); i++)
+        {
+            int newParentIndex = getPredecessorVertexIndex(i);
+            treeStringBuilder.append("\t".repeat(Math.max(0, newParentIndex)+1));
+            treeStringBuilder.append(getGraph().getVertices().get(i).getName())
+                    .append(" \t").append(getDistanceToVertex(i)).append('\n');
+        }
+        var treeString = treeStringBuilder.toString();
+        LOGGER.info(treeString);
+    }
 }

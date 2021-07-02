@@ -20,7 +20,8 @@ public interface GraphInterface
 
     String toString();
 
+    float getDistance(Vertex source, Vertex destination);
+
     void printInGraphViz(String fileName);
 
-    float getDistance(Vertex source, Vertex destination);
 }

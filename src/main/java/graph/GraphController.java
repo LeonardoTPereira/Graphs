@@ -82,9 +82,9 @@ public final class GraphController
         g.addEdge(g.getVertices().get(2), g.getVertices().get(3), 7);
         g.addEdge(g.getVertices().get(3), g.getVertices().get(4), 6);
         g.addEdge(g.getVertices().get(4), g.getVertices().get(5), 2);
-        g.addEdge(g.getVertices().get(5), g.getVertices().get(6), 1);
         g.addEdge(g.getVertices().get(5), g.getVertices().get(0), 3);
+        g.addEdge(g.getVertices().get(0), g.getVertices().get(6), 10);
 
-        traversalStrategy = new FloydWarshallTraversal(g);
+        traversalStrategy = new PrimMSTTraversal(g);
     }
 }
