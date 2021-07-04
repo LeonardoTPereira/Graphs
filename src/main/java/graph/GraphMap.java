@@ -9,10 +9,9 @@ public class GraphMap extends DigraphMap
         super(vertices);
     }
 
-    @Override
-    public void addVertex(Vertex vertex)
+    public GraphMap()
     {
-        throw new UnsupportedOperationException();
+        super();
     }
 
     @Override

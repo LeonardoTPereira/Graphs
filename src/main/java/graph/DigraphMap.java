@@ -38,15 +38,15 @@ public class DigraphMap extends AbstractGraph
         initializeAdjacencyMap();
     }
 
+    public DigraphMap()
+    {
+        super();
+        initializeAdjacencyMap();
+    }
+
     private void initializeAdjacencyMap()
     {
         adjacencyMap = new HashMap<>();
-    }
-
-    @Override
-    public void addVertex(Vertex vertex)
-    {
-        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -24,6 +24,18 @@ public class DigraphMatrix extends AbstractGraph
         initializeAdjacencyMatrix();
     }
 
+    public DigraphMatrix()
+    {
+        super();
+    }
+
+    @Override
+    public void addVertex(Vertex vertex)
+    {
+        super.addVertex(vertex);
+        expandAdjacencyMatrix();
+    }
+
     private void initializeAdjacencyMatrix()
     {
         setAdjacencyMatrix(new Edge[getNumberOfVertices()][getNumberOfVertices()]);
@@ -36,10 +48,17 @@ public class DigraphMatrix extends AbstractGraph
         }
     }
 
-    @Override
-    public void addVertex(Vertex vertex)
+    private void expandAdjacencyMatrix()
     {
-        throw new UnsupportedOperationException();
+        Edge[][] newAdjacencyMatrix = new Edge[getNumberOfVertices()][getNumberOfVertices()];
+        System.arraycopy(adjacencyMatrix, 0, newAdjacencyMatrix, 0, getNumberOfVertices()-1);
+        for (int i = 0; i < (getNumberOfVertices()-1); i++)
+        {
+            System.arraycopy(adjacencyMatrix[i], 0, newAdjacencyMatrix[i], 0, getNumberOfVertices()-1);
+            newAdjacencyMatrix[i][getNumberOfVertices()-1] = null;
+            newAdjacencyMatrix[getNumberOfVertices()-1][i] = null;
+        }
+        newAdjacencyMatrix[getNumberOfVertices()-1][getNumberOfVertices()-1] = null;
     }
 
     @Override

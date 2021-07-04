@@ -9,10 +9,9 @@ public class GraphList extends DigraphList
         super(vertices);
     }
 
-    @Override
-    public void addVertex(Vertex vertex)
+    public GraphList()
     {
-        throw new UnsupportedOperationException();
+        super();
     }
 
     @Override

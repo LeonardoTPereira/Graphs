@@ -1,11 +1,12 @@
 package graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractGraph implements GraphInterface
 {
-    protected static final int GRAPHVIZ_IMAGE_WIDTH = 800;
+    protected static final int GRAPHVIZ_IMAGE_WIDTH = 2000;
     protected static final String GRAPHVIZ_FOLDER = "example/";
     protected static final String GRAPHVIZ_FILE_EXTENSION = ".png";
     private int numberOfVertices;
@@ -15,6 +16,19 @@ public abstract class AbstractGraph implements GraphInterface
     {
         numberOfVertices = vertices.size();
         setVertices(vertices);
+    }
+
+    protected AbstractGraph()
+    {
+        vertices = new ArrayList<>();
+        numberOfVertices = 0;
+    }
+
+    @Override
+    public void addVertex(Vertex vertex)
+    {
+        vertices.add(vertex);
+        numberOfVertices = vertices.size();
     }
 
     public int getNumberOfVertices()

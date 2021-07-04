@@ -27,6 +27,12 @@ public class DigraphList extends AbstractGraph
         initializeAdjacencyList();
     }
 
+    public DigraphList()
+    {
+        super();
+        initializeAdjacencyList();
+    }
+
     private void initializeAdjacencyList()
     {
         setAdjacencyList(new ArrayList<>());
@@ -39,7 +45,8 @@ public class DigraphList extends AbstractGraph
     @Override
     public void addVertex(Vertex vertex)
     {
-        throw new UnsupportedOperationException();
+        super.addVertex(vertex);
+        getAdjacencyList().add(new ArrayList<>());
     }
 
     @Override
