@@ -50,9 +50,9 @@ public class DigraphMatrix extends AbstractGraph
 
     private void expandAdjacencyMatrix()
     {
-        Edge[][] newAdjacencyMatrix = new Edge[getNumberOfVertices()][getNumberOfVertices()];
+        var newAdjacencyMatrix = new Edge[getNumberOfVertices()][getNumberOfVertices()];
         System.arraycopy(adjacencyMatrix, 0, newAdjacencyMatrix, 0, getNumberOfVertices()-1);
-        for (int i = 0; i < (getNumberOfVertices()-1); i++)
+        for (var i = 0; i < (getNumberOfVertices()-1); i++)
         {
             System.arraycopy(adjacencyMatrix[i], 0, newAdjacencyMatrix[i], 0, getNumberOfVertices()-1);
             newAdjacencyMatrix[i][getNumberOfVertices()-1] = null;
@@ -213,5 +213,38 @@ public class DigraphMatrix extends AbstractGraph
     public void setAdjacencyMatrix(Edge[][] adjacencyMatrix)
     {
         this.adjacencyMatrix = adjacencyMatrix;
+    }
+
+    @Override
+    protected DigraphMatrix clone() throws CloneNotSupportedException
+    {
+        DigraphMatrix cloneGraph = (DigraphMatrix) super.clone();
+        cloneGraph.cloneAdjacencyMatrix(this);
+        return cloneGraph;
+    }
+
+    private void cloneAdjacencyMatrix(DigraphMatrix cloneTarget)
+    {
+        for(var i = 0; i < cloneTarget.getAdjacencyMatrix().length; i++)
+        {
+            for (var j = 0; j < cloneTarget.getAdjacencyMatrix().length; j++)
+            {
+                if(cloneTarget.getAdjacencyMatrix()[i][j] != null)
+                {
+                    addEdge(getVertices().get(i), getVertices().get(j), cloneTarget.getAdjacencyMatrix()[i][j].getWeight());
+                }
+            }
+        }
+    }
+
+    public void removeAllEdges()
+    {
+        for(var i = 0; i < getAdjacencyMatrix().length; i++)
+        {
+            for (var j = 0; j < getAdjacencyMatrix().length; j++)
+            {
+                getAdjacencyMatrix()[i][j] = null;
+            }
+        }
     }
 }

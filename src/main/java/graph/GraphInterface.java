@@ -24,4 +24,5 @@ public interface GraphInterface
 
     void printInGraphViz(String fileName);
 
+    void removeAllEdges();
 }

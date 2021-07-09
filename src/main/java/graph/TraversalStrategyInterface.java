@@ -15,6 +15,11 @@ public abstract class TraversalStrategyInterface
     private int[] successorVertexIndices;
     private List<Vertex> traversalPath;
 
+    public int[] getPredecessorArray()
+    {
+        return predecessorVertexIndices;
+    }
+
     public void markVertexAsVisited(int vertexIndex)
     {
         visitedVertices[vertexIndex] = true;

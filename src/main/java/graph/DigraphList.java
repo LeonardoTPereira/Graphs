@@ -213,4 +213,32 @@ public class DigraphList extends AbstractGraph
         }
         return Float.POSITIVE_INFINITY;
     }
+
+    @Override
+    protected DigraphList clone() throws CloneNotSupportedException
+    {
+        DigraphList cloneGraph = (DigraphList) super.clone();
+        cloneGraph.setAdjacencyList(new ArrayList<>());
+        for (var i = 0; i < cloneGraph.getNumberOfVertices(); i++)
+        {
+            cloneGraph.getAdjacencyList().add(new ArrayList<>());
+        }
+        for(var i = 0; i < getAdjacencyList().size(); i++)
+        {
+            for(var j = 0; j < getAdjacencyList().get(i).size(); j++)
+            {
+                Vertex destinationInCloneGraph = cloneGraph.getVertices().get(getVertices().indexOf(getAdjacencyList().get(i).get(j).getDestination()));
+                cloneGraph.addEdge(cloneGraph.getVertices().get(i), destinationInCloneGraph, getAdjacencyList().get(i).get(j).getWeight());
+            }
+        }
+        return cloneGraph;
+    }
+
+    public void removeAllEdges()
+    {
+        for(var i = 0; i < getAdjacencyList().size(); i++)
+        {
+            getAdjacencyList().get(i).clear();
+        }
+    }
 }

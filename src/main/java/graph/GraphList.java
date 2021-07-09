@@ -41,4 +41,10 @@ public class GraphList extends DigraphList
         int vertexIndex = getVertices().indexOf(vertex);
         return !getAdjacencyList().get(vertexIndex).isEmpty();
     }
+
+    @Override
+    protected GraphList clone() throws CloneNotSupportedException
+    {
+        return (GraphList) super.clone();
+    }
 }

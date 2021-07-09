@@ -34,7 +34,16 @@ public class FloydWarshallTraversal extends TraversalStrategyInterface
             {
                 Vertex origin = getGraph().getVertices().get(i);
                 Vertex destination = getGraph().getVertices().get(j);
-                distanceMatrix[i][j] = getGraph().getDistance(origin, destination);
+                if(getGraph().edgeExists(origin, destination))
+                {
+                    distanceMatrix[i][j] = getGraph().getDistance(origin, destination);
+                    distanceMatrix[j][i] = getGraph().getDistance(destination, origin);
+                }
+                else
+                {
+                    distanceMatrix[i][j] = Float.POSITIVE_INFINITY;
+                    distanceMatrix[j][i] = Float.POSITIVE_INFINITY;
+                }
             }
         }
 

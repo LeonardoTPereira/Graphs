@@ -29,4 +29,9 @@ public class GraphMatrix extends DigraphMatrix
         super.removeEdge(destination, source);
     }
 
+    @Override
+    protected GraphMatrix clone() throws CloneNotSupportedException
+    {
+        return (GraphMatrix)super.clone();
+    }
 }

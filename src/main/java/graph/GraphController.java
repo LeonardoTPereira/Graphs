@@ -1,7 +1,6 @@
 package graph;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -23,15 +22,10 @@ public final class GraphController
     {
         var graphController = new GraphController();
 
-        DelaunayTriangulation delaunayTriangulation = new DelaunayTriangulation();
-        graphController.g = delaunayTriangulation.createDungeonAsGraph(10, 10, 8);
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new DungeonGraphic(graphController.g).setVisible(true);
-            }
-        });
+        RandomDungeonGenerator randomDungeonGenerator = new RandomDungeonGenerator(20, 100, 100);
+        graphController.g = randomDungeonGenerator.getDungeon();
+        DelaunayTriangulation.triangulateGraphVertices(graphController.g);
+        SwingUtilities.invokeLater(() -> new DungeonGraphic(graphController.g).setVisible(true));
         graphController.testDungeon("Dungeons");
         /*graphController.g = new DigraphMatrix(graphController.vertices);
         graphController.test("MatrixDigraph");

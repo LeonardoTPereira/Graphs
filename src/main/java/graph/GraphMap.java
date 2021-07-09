@@ -40,4 +40,10 @@ public class GraphMap extends DigraphMap
     {
         return !getAdjacencyMap().get(vertex).isEmpty();
     }
+
+    @Override
+    protected GraphMap clone() throws CloneNotSupportedException
+    {
+        return (GraphMap) super.clone();
+    }
 }

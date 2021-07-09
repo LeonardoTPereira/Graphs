@@ -206,4 +206,37 @@ public class DigraphMap extends AbstractGraph
         }
         return Float.POSITIVE_INFINITY;
     }
+
+    @Override
+    protected DigraphMap clone() throws CloneNotSupportedException
+    {
+        DigraphMap cloneGraph = (DigraphMap) super.clone();
+        cloneGraph.cloneAdjacencyMap(this);
+        return cloneGraph;
+    }
+
+    private void cloneAdjacencyMap(DigraphMap cloneTarget)
+    {
+        for(var i = 0; i < cloneTarget.getAdjacencyMap().size(); i++)
+        {
+            var currentVertex = getVertices().get(i);
+            if(cloneTarget.getAdjacencyMap().containsKey(currentVertex))
+            {
+                for (var j = 0; j < cloneTarget.getAdjacencyMap().get(currentVertex).size(); j++)
+                {
+                    var currentEdge = cloneTarget.getAdjacencyMap().get(currentVertex).get(j);
+                    addEdge(getVertices().get(i), currentEdge.getDestination(), currentEdge.getWeight());
+                }
+            }
+        }
+    }
+
+    public void removeAllEdges()
+    {
+        for(var i = 0; i < getAdjacencyMap().size(); i++)
+        {
+            getAdjacencyMap().get(getVertices().get(i)).clear();
+        }
+        getAdjacencyMap().clear();
+    }
 }

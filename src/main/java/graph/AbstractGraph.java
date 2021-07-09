@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractGraph implements GraphInterface
+public abstract class AbstractGraph implements GraphInterface, Cloneable
 {
     protected static final int GRAPHVIZ_IMAGE_WIDTH = 2000;
     protected static final String GRAPHVIZ_FOLDER = "example/";
@@ -92,5 +92,14 @@ public abstract class AbstractGraph implements GraphInterface
     public int getIndexOfVertex(Vertex vertex)
     {
         return getVertices().indexOf(vertex);
+    }
+
+    @Override
+    protected AbstractGraph clone() throws CloneNotSupportedException
+    {
+        AbstractGraph graphClone = (AbstractGraph)super.clone();
+        graphClone.setNumberOfVertices(this.getNumberOfVertices());
+        graphClone.setVertices(new ArrayList<>(this.getVertices()));
+        return graphClone;
     }
 }

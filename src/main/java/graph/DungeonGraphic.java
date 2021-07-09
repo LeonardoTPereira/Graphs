@@ -2,16 +2,13 @@ package graph;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class DungeonGraphic extends JFrame
 {
-    private final BufferedImage image;
     AbstractGraph graph;
     public DungeonGraphic(AbstractGraph graph)
     {
         super("Dungeon");
-        image = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
         this.graph = graph;
         getContentPane().setBackground(Color.black);
         setSize(900, 900);
@@ -22,22 +19,33 @@ public class DungeonGraphic extends JFrame
 
     private void drawDungeon(Graphics g)
     {
-        Graphics2D graphics2D = (Graphics2D) g;
+        var graphics2D = (Graphics2D) g;
         if(graph != null)
         {
-            for (int i = 0; i < graph.getNumberOfVertices(); i++)
+            for (var i = 0; i < graph.getNumberOfVertices(); i++)
             {
                 graphics2D.setColor(Color.BLUE);
-                Vertex currentVertex = graph.getVertices().get(i);
-                graphics2D.draw(((Room) currentVertex).getRoom());
-                g.setColor(Color.RED);
+                var currentVertex = graph.getVertices().get(i);
+                graphics2D.draw(((Room)currentVertex).getRoom());
+                if(((Room)currentVertex).isCheckpoint())
+                {
+                    graphics2D.setColor(Color.YELLOW);
+                    graphics2D.fill(((Room) currentVertex).getRoom());
+                }
+                else if(((Room)currentVertex).isExit())
+                {
+                    graphics2D.setColor(Color.RED);
+                    graphics2D.fill(((Room) currentVertex).getRoom());
+                }
+                else if(((Room)currentVertex).isEntrance())
+                {
+                    graphics2D.setColor(Color.GREEN);
+                    graphics2D.fill(((Room) currentVertex).getRoom());
+                }
+                g.setColor(Color.PINK);
                 var adjacentVertex = graph.getFirstConnectedVertex(currentVertex);
                 while(adjacentVertex != null)
                 {
-                    /*g.drawLine((int)((Room) currentVertex).getPoint().getX(), (int)((Room) currentVertex).getPoint().getY(),
-                            (int)((Room) currentVertex).getPoint().getX(),(int) ((Room) adjacentVertex).getPoint().getY());
-                    g.drawLine((int)((Room) currentVertex).getPoint().getX(), (int)((Room) adjacentVertex).getPoint().getY(),
-                            (int)((Room) adjacentVertex).getPoint().getX(),(int) ((Room) adjacentVertex).getPoint().getY());*/
                     g.drawLine((int)((Room) currentVertex).getPoint().getX(), (int)((Room) currentVertex).getPoint().getY(),
                             (int)((Room) adjacentVertex).getPoint().getX(),(int) ((Room) adjacentVertex).getPoint().getY());
                     adjacentVertex = graph.getNextConnectedVertex(currentVertex, adjacentVertex);
@@ -49,7 +57,6 @@ public class DungeonGraphic extends JFrame
     public void paint(Graphics g)
     {
         super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
         drawDungeon(g);
     }
 }
