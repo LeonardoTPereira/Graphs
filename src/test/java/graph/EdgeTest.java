@@ -16,16 +16,18 @@ class EdgeTest
     @Test
     void constructorWeightAndDestination()
     {
-        Edge edge = new Edge(new Vertex("A"), 1.5f);
+        Vertex vertex = new Vertex("A");
+        Edge edge = new Edge(vertex, 1.5f);
         assertEquals(1.5f, edge.getWeight());
-        assertEquals(new Vertex("A"), edge.getDestination());
+        assertEquals(vertex, edge.getDestination());
     }
 
     @Test
     void getDestination()
     {
-        Edge edge = new Edge(new Vertex("A"), 1.5f);
-        assertEquals(new Vertex("A"), edge.getDestination());
+        Vertex vertex = new Vertex("A");
+        Edge edge = new Edge(vertex, 1.5f);
+        assertEquals(vertex, edge.getDestination());
     }
 
     @Test
@@ -34,7 +36,7 @@ class EdgeTest
         Vertex vertex = new Vertex("A");
         Edge edge = new Edge(1.5f);
         edge.setDestination(vertex);
-        assertEquals(new Vertex("A"), edge.getDestination());
+        assertEquals(vertex, edge.getDestination());
     }
 
     @Test
