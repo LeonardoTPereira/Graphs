@@ -92,10 +92,10 @@ public abstract class TraversalStrategyInterface
         for (Vertex vertex : traversalPath)
         {
             visitedPath.append(vertex).append(' ').
-                    append("Distance: ").append(getDistanceToVertex(getGraph().getVertices().indexOf(vertex))).append(' ');
+                    append("Distance: ").append(getDistanceToVertex(getGraph().getVertices().indexOf(vertex))).append(' ').append("\n");
         }
-        var traversalPathString = "\n"+ visitedPath +"\n";
-        LOGGER.info(traversalPathString);
+        var traversalPathString = visitedPath.toString();
+        System.out.println(traversalPathString);
     }
 
     protected void printShortestPath(Vertex source, Vertex destination)

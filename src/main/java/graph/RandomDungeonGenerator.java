@@ -6,17 +6,20 @@ public class RandomDungeonGenerator
 {
     private AbstractGraph dungeon;
 
+    private static final int ROOM_MAX_WIDTH = 100;
+    private static final int ROOM_MAX_HEIGHT = 100;
+
     public AbstractGraph getDungeon()
     {
         return dungeon;
     }
 
-    public RandomDungeonGenerator(int nRooms, int roomMaxWidth, int roomMaxHeight)
+    public RandomDungeonGenerator(int nRooms)
     {
-        createGraphWithRooms(roomMaxWidth, roomMaxHeight, nRooms);
+        createGraphWithRooms(nRooms);
     }
 
-    private void createGraphWithRooms(int maxWidth, int maxHeight, int nRooms)
+    private void createGraphWithRooms(int nRooms)
     {
         dungeon = new GraphList();
         for (var i = 0; i < nRooms; i++)
@@ -26,7 +29,7 @@ public class RandomDungeonGenerator
             do
             {
                 roomIsValid = true;
-                newRectangle = createRandomRectangle(maxWidth, maxHeight);
+                newRectangle = createRandomRectangle(ROOM_MAX_WIDTH, ROOM_MAX_HEIGHT);
                 for (var j = 0; (j < dungeon.getNumberOfVertices()) && roomIsValid; j++)
                 {
                     if (newRectangle.intersects(((Room) dungeon.getVertices().get(j)).getRoom()))

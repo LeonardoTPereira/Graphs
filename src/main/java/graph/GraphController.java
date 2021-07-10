@@ -1,6 +1,5 @@
 package graph;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -22,12 +21,7 @@ public final class GraphController
     {
         var graphController = new GraphController();
 
-        RandomDungeonGenerator randomDungeonGenerator = new RandomDungeonGenerator(20, 100, 100);
-        graphController.g = randomDungeonGenerator.getDungeon();
-        DelaunayTriangulation.triangulateGraphVertices(graphController.g);
-        SwingUtilities.invokeLater(() -> new DungeonGraphic(graphController.g).setVisible(true));
-        graphController.testDungeon("Dungeons");
-        /*graphController.g = new DigraphMatrix(graphController.vertices);
+        graphController.g = new DigraphMatrix(graphController.vertices);
         graphController.test("MatrixDigraph");
 
         graphController.g = new GraphMatrix(graphController.vertices);
@@ -43,7 +37,7 @@ public final class GraphController
         graphController.test("MapDigraph");
 
         graphController.g = new GraphMap(graphController.vertices);
-        graphController.test("MapGraph");*/
+        graphController.test("MapGraph");
     }
 
     private static List<Vertex> createVertexList()
@@ -92,12 +86,5 @@ public final class GraphController
         g.addEdge(g.getVertices().get(0), g.getVertices().get(6), 10);
 
         traversalStrategy = new PrimMSTTraversal(g);
-    }
-
-    private void testDungeon(String fileName)
-    {
-        var graphString = "\n"+ g +"\n";
-        LOGGER.info(graphString);
-        g.printInGraphViz(fileName);
     }
 }

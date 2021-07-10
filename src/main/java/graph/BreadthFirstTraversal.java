@@ -45,7 +45,6 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
             }
         }
         printPath();
-        printShortestPath(source, getGraph().getVertices().get(getGraph().getVertices().size()-1));
     }
 
     private void updateTraversalInfoForVertex(int newVertexIndex, int previousVertexIndex)

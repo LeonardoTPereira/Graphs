@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.awt.geom.Point2D.distance;
+
 public class DelaunayTriangulation
 {
     private DelaunayTriangulation(){}
@@ -24,11 +26,11 @@ public class DelaunayTriangulation
                     if(isTriangle && triangleDoesNotOverlap(triangle, triangleList))
                     {
                         float weight;
-                        weight = (float)Point.distance(triangle.getP1().getX(), triangle.getP1().getY(), triangle.getP2().getX(), triangle.getP2().getY());
+                        weight = (float) distance(triangle.getP1().getX(), triangle.getP1().getY(), triangle.getP2().getX(), triangle.getP2().getY());
                         graph.addEdge(graph.getVertices().get(i), graph.getVertices().get(j), weight);
-                        weight = (float)Point.distance(triangle.getP1().getX(), triangle.getP1().getY(), triangle.getP3().getX(), triangle.getP3().getY());
+                        weight = (float) distance(triangle.getP1().getX(), triangle.getP1().getY(), triangle.getP3().getX(), triangle.getP3().getY());
                         graph.addEdge(graph.getVertices().get(i), graph.getVertices().get(k), weight);
-                        weight = (float)Point.distance(triangle.getP2().getX(), triangle.getP2().getY(), triangle.getP3().getX(), triangle.getP3().getY());
+                        weight = (float) distance(triangle.getP2().getX(), triangle.getP2().getY(), triangle.getP3().getX(), triangle.getP3().getY());
                         graph.addEdge(graph.getVertices().get(j), graph.getVertices().get(k), weight);
                         triangleList.add(triangle);
                     }
