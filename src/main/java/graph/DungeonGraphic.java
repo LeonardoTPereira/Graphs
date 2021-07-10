@@ -19,13 +19,13 @@ public class DungeonGraphic extends JFrame
 
     private void drawDungeon(Graphics g)
     {
-        var graphics2D = (Graphics2D) g;
+        Graphics2D graphics2D = (Graphics2D) g;
         if(graph != null)
         {
-            for (var i = 0; i < graph.getNumberOfVertices(); i++)
+            for (int i = 0; i < graph.getNumberOfVertices(); i++)
             {
                 graphics2D.setColor(Color.BLUE);
-                var currentVertex = graph.getVertices().get(i);
+                Vertex currentVertex = graph.getVertices().get(i);
                 graphics2D.draw(((Room)currentVertex).getRoom());
                 if(((Room)currentVertex).isCheckpoint())
                 {
@@ -43,7 +43,7 @@ public class DungeonGraphic extends JFrame
                     graphics2D.fill(((Room) currentVertex).getRoom());
                 }
                 g.setColor(Color.PINK);
-                var adjacentVertex = graph.getFirstConnectedVertex(currentVertex);
+                Vertex adjacentVertex = graph.getFirstConnectedVertex(currentVertex);
                 while(adjacentVertex != null)
                 {
                     g.drawLine((int)((Room) currentVertex).getPoint().getX(), (int)((Room) currentVertex).getPoint().getY(),

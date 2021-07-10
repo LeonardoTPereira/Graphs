@@ -22,7 +22,7 @@ public class DepthFirstTraversal extends TraversalStrategyInterface
         markVertexAsVisited(getGraph().getVertices().indexOf(source));
         traversedPath.append(source).append('\n');
         addToPath(source);
-        var adjacentVertex = getGraph().getFirstConnectedVertex(source);
+        Vertex adjacentVertex = getGraph().getFirstConnectedVertex(source);
         while(adjacentVertex != null)
         {
             int adjacentVertexIndex = getGraph().getVertices().indexOf(adjacentVertex);

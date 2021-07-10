@@ -19,7 +19,7 @@ public final class GraphController
 
     public static void main(String[] args)
     {
-        var graphController = new GraphController();
+        GraphController graphController = new GraphController();
 
         graphController.g = new DigraphMatrix(graphController.vertices);
         graphController.test("MatrixDigraph");
@@ -61,14 +61,13 @@ public final class GraphController
 
     private void printTest(String fileName)
     {
-        var graphString = "\n"+ g +"\n";
+        String graphString = "\n"+ g +"\n";
         LOGGER.info(graphString);
-        g.printInGraphViz(fileName);
         traversalStrategy.traverseGraph(g.getVertices().get(0));
         if(traversalStrategy instanceof FloydWarshallTraversal)
         {
-            var center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());
-            var centerVertexString = "\n"+ center +"\n";
+            Vertex center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());
+            String centerVertexString = "\n"+ center +"\n";
             LOGGER.info(centerVertexString);
         }
     }

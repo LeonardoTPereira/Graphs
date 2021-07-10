@@ -13,14 +13,14 @@ public class DelaunayTriangulation
     public static void triangulateGraphVertices(AbstractGraph graph)
     {
         List<Triangle> triangleList = new ArrayList<>();
-        for (var i = 0; i < graph.getNumberOfVertices(); i++)
+        for (int i = 0; i < graph.getNumberOfVertices(); i++)
         {
-            for (var j = (i+1); j < graph.getNumberOfVertices(); j++)
+            for (int j = (i+1); j < graph.getNumberOfVertices(); j++)
             {
-                for (var k = (j+1); k < graph.getNumberOfVertices(); k++)
+                for (int k = (j+1); k < graph.getNumberOfVertices(); k++)
                 {
-                    var isTriangle = true;
-                    var triangle = new Triangle(((Room)graph.getVertices().get(i)).getPoint(), ((Room)graph.getVertices().get(j)).getPoint(),
+                    boolean isTriangle = true;
+                    Triangle triangle = new Triangle(((Room)graph.getVertices().get(i)).getPoint(), ((Room)graph.getVertices().get(j)).getPoint(),
                             ((Room)graph.getVertices().get(k)).getPoint());
                     isTriangle = hasNoVerticesInsideTriangle(graph, triangle);
                     if(isTriangle && triangleDoesNotOverlap(triangle, triangleList))
@@ -42,9 +42,9 @@ public class DelaunayTriangulation
 
     private static boolean hasNoVerticesInsideTriangle(AbstractGraph graph, Triangle triangle)
     {
-        for (var a = 0; (a < graph.getNumberOfVertices()); a++)
+        for (int a = 0; (a < graph.getNumberOfVertices()); a++)
         {
-            var point = ((Room) graph.getVertices().get(a)).getPoint();
+            Point point = ((Room) graph.getVertices().get(a)).getPoint();
             if (isNotTriangleVertex(triangle, point) && triangle.contains(point))
             {
                 return false;
@@ -64,13 +64,13 @@ public class DelaunayTriangulation
 
     private static boolean triangleDoesNotOverlap(Triangle newTriangle, List<Triangle> existingTriangles)
     {
-        var pointsNewTriangle = new Point[]{newTriangle.getP1(), newTriangle.getP2(), newTriangle.getP3(), newTriangle.getP1()};
+        Point []pointsNewTriangle = new Point[]{newTriangle.getP1(), newTriangle.getP2(), newTriangle.getP3(), newTriangle.getP1()};
         for (Triangle triangle : existingTriangles)
         {
-            var pointsCurrentTriangle = new Point[]{triangle.getP1(), triangle.getP2(), triangle.getP3(), triangle.getP1()};
-            for (var i = 0; i < 3; i++)
+            Point[] pointsCurrentTriangle = new Point[]{triangle.getP1(), triangle.getP2(), triangle.getP3(), triangle.getP1()};
+            for (int i = 0; i < 3; i++)
             {
-                for (var j = 0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     if(isCrossIntersect(pointsNewTriangle[i], pointsNewTriangle[i+1],
                             pointsCurrentTriangle[j], pointsCurrentTriangle[j+1]))

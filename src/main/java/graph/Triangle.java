@@ -29,16 +29,16 @@ public class Triangle
         /* Calculate area of triangle ABC */
         double areaABC = this.getArea();
 
-        var trianglePBC = new Triangle(point, this.getP2(), this.getP3());
+        Triangle trianglePBC = new Triangle(point, this.getP2(), this.getP3());
 
         /* Calculate area of triangle PBC */
         double areaPBC = trianglePBC.getArea();
 
-        var trianglePAC = new Triangle(this.getP1(), point, this.getP3());
+        Triangle trianglePAC = new Triangle(this.getP1(), point, this.getP3());
         /* Calculate area of triangle PAC */
         double areaPAC = trianglePAC.getArea();
 
-        var trianglePAB = new Triangle(this.getP1(), this.getP2(), point);
+        Triangle trianglePAB = new Triangle(this.getP1(), this.getP2(), point);
         /* Calculate area of triangle PAB */
         double areaPAB = trianglePAB.getArea();
 

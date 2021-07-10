@@ -88,13 +88,13 @@ public abstract class TraversalStrategyInterface
 
     protected void printPath()
     {
-        var visitedPath = new StringBuilder();
+        StringBuilder visitedPath = new StringBuilder();
         for (Vertex vertex : traversalPath)
         {
             visitedPath.append(vertex).append(' ').
                     append("Distance: ").append(getDistanceToVertex(getGraph().getVertices().indexOf(vertex))).append(' ').append("\n");
         }
-        var traversalPathString = visitedPath.toString();
+        String traversalPathString = visitedPath.toString();
         System.out.println(traversalPathString);
     }
 
@@ -102,7 +102,7 @@ public abstract class TraversalStrategyInterface
     {
         int sourceIndex = graph.getVertices().indexOf(source);
         int destinationIndex = graph.getVertices().indexOf(destination);
-        var shortestPath = new StringBuilder();
+        StringBuilder shortestPath = new StringBuilder();
         int currentIndex = destinationIndex;
         do
         {
@@ -110,18 +110,18 @@ public abstract class TraversalStrategyInterface
             currentIndex = getPredecessorVertexIndex(currentIndex);
         }while(currentIndex != sourceIndex);
         shortestPath.append(graph.getVertices().get(currentIndex));
-        var shortestPathString = "\n"+ shortestPath +"\n";
+        String shortestPathString = "\n"+ shortestPath +"\n";
         LOGGER.info(shortestPathString);
     }
 
     protected void printDistances()
     {
-        var distanceString = new StringBuilder();
-        for (var i = 0; i < distanceToVertices.length; i++)
+        StringBuilder distanceString = new StringBuilder();
+        for (int i = 0; i < distanceToVertices.length; i++)
         {
             distanceString.append(i).append(": ").append(getGraph().getVertices().get(i)).append(" - ").append(getDistanceToVertex(i)).append("\n");
         }
-        var finalString = distanceString.toString();
+        String finalString = distanceString.toString();
         LOGGER.info(finalString);
     }
 
@@ -132,17 +132,17 @@ public abstract class TraversalStrategyInterface
 
     protected void printVisitTree()
     {
-        var treeStringBuilder = new StringBuilder();
+        StringBuilder treeStringBuilder = new StringBuilder();
         treeStringBuilder.append('\n');
         treeStringBuilder.append(getGraph().getVertices().get(0).getName()).append('\n');
-        for (var i = 1; i < getGraph().getNumberOfVertices(); i++)
+        for (int i = 1; i < getGraph().getNumberOfVertices(); i++)
         {
             int newParentIndex = getPredecessorVertexIndex(i);
             treeStringBuilder.append("\t".repeat(Math.max(0, newParentIndex)+1));
             treeStringBuilder.append(getGraph().getVertices().get(i).getName())
                     .append(" \t").append(getDistanceToVertex(i)).append('\n');
         }
-        var treeString = treeStringBuilder.toString();
+        String treeString = treeStringBuilder.toString();
         LOGGER.info(treeString);
     }
 }

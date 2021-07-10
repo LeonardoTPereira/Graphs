@@ -31,7 +31,7 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
             currentVisitedVertexIndex = getGraph().getVertices().indexOf(currentVisitedVertex);
             if (currentVisitedVertex != null)
             {
-                var adjacentVertex = getGraph().getFirstConnectedVertex(currentVisitedVertex);
+                Vertex adjacentVertex = getGraph().getFirstConnectedVertex(currentVisitedVertex);
                 while(adjacentVertex != null)
                 {
                     int adjacentVertexIndex = getGraph().getVertices().indexOf(adjacentVertex);
@@ -49,8 +49,8 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
 
     private void updateTraversalInfoForVertex(int newVertexIndex, int previousVertexIndex)
     {
-        var newVertex = getGraph().getVertices().get(newVertexIndex);
-        var oldVertex = getGraph().getVertices().get(previousVertexIndex);
+        Vertex newVertex = getGraph().getVertices().get(newVertexIndex);
+        Vertex oldVertex = getGraph().getVertices().get(previousVertexIndex);
         float newDistance = getGraph().getDistance(oldVertex, newVertex);
         float distance = getDistanceToVertex(previousVertexIndex) + newDistance;
         addToPath(newVertex);

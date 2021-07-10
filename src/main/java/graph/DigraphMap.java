@@ -1,20 +1,10 @@
 package graph;
 
-import guru.nidi.graphviz.attribute.Label;
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.MutableGraph;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static guru.nidi.graphviz.model.Factory.*;
 
 public class DigraphMap extends AbstractGraph
 {
@@ -107,9 +97,9 @@ public class DigraphMap extends AbstractGraph
             return true;
         }
 
-        for (var i = 0; i < getNumberOfVertices(); i++)
+        for (int i = 0; i < getNumberOfVertices(); i++)
         {
-            for (var j = 0; j < getAdjacencyMap().get(getVertices().get(i)).size(); ++j)
+            for (int j = 0; j < getAdjacencyMap().get(getVertices().get(i)).size(); ++j)
             {
                 if(getAdjacencyMap().get(getVertices().get(i)).get(j).getDestination() == vertex)
                 {
@@ -136,7 +126,7 @@ public class DigraphMap extends AbstractGraph
     @Override
     public Vertex getNextConnectedVertex(Vertex source, Vertex currentConnection)
     {
-        var currentAdjacentVertexIndex = 0;
+        int currentAdjacentVertexIndex = 0;
         while(getAdjacencyMap().get(source).get(currentAdjacentVertexIndex).getDestination() != currentConnection)
         {
             currentAdjacentVertexIndex++;
@@ -154,11 +144,11 @@ public class DigraphMap extends AbstractGraph
 
     @Override
     public String toString() {
-        var s = new StringBuilder();
+        StringBuilder s = new StringBuilder();
         for(Map.Entry<Vertex, List<Edge>> pair : getAdjacencyMap().entrySet())
         {
             s.append(getVertices().indexOf(pair.getKey())).append(": ");
-            for (var j = 0; j < pair.getValue().size(); ++j)
+            for (int j = 0; j < pair.getValue().size(); ++j)
             {
                 s.append(pair.getValue().get(j).getWeight()).append(" ");
             }
@@ -168,35 +158,11 @@ public class DigraphMap extends AbstractGraph
     }
 
     @Override
-    public void printInGraphViz(String fileName)
-    {
-        MutableGraph g = mutGraph("example1Digraph").setDirected(true);
-
-        for(Map.Entry<Vertex, List<Edge>> pair : getAdjacencyMap().entrySet())
-        {
-            for (var j = 0; j < pair.getValue().size(); ++j)
-            {
-                int destinationIndex = getVertices().indexOf(pair.getValue().get(j).getDestination());
-                float weight = pair.getValue().get(j).getWeight();
-                g.add(mutNode(pair.getKey().getName()).addLink(to((mutNode(getVertices().get(destinationIndex).getName()))).add(Label.of(String.valueOf(weight)))));
-            }
-        }
-        try
-        {
-            Graphviz.fromGraph(g).width(GRAPHVIZ_IMAGE_WIDTH).render(Format.PNG).toFile(new File(GRAPHVIZ_FOLDER+fileName+GRAPHVIZ_FILE_EXTENSION));
-        }
-        catch ( IOException e )
-        {
-            LOGGER.log(Level.SEVERE, "IO Exception thrown when saving Graphviz file", e);
-        }
-    }
-
-    @Override
     public float getDistance(Vertex source, Vertex destination)
     {
         if(getAdjacencyMap().containsKey(source))
         {
-            for (var i = 0; i < getAdjacencyMap().get(source).size(); i++)
+            for (int i = 0; i < getAdjacencyMap().get(source).size(); i++)
             {
                 if (getAdjacencyMap().get(source).get(i).getDestination() == destination)
                 {
@@ -217,14 +183,14 @@ public class DigraphMap extends AbstractGraph
 
     private void cloneAdjacencyMap(DigraphMap cloneTarget)
     {
-        for(var i = 0; i < cloneTarget.getAdjacencyMap().size(); i++)
+        for(int i = 0; i < cloneTarget.getAdjacencyMap().size(); i++)
         {
-            var currentVertex = getVertices().get(i);
+            Vertex currentVertex = getVertices().get(i);
             if(cloneTarget.getAdjacencyMap().containsKey(currentVertex))
             {
-                for (var j = 0; j < cloneTarget.getAdjacencyMap().get(currentVertex).size(); j++)
+                for (int j = 0; j < cloneTarget.getAdjacencyMap().get(currentVertex).size(); j++)
                 {
-                    var currentEdge = cloneTarget.getAdjacencyMap().get(currentVertex).get(j);
+                    Edge currentEdge = cloneTarget.getAdjacencyMap().get(currentVertex).get(j);
                     addEdge(getVertices().get(i), currentEdge.getDestination(), currentEdge.getWeight());
                 }
             }
@@ -233,7 +199,7 @@ public class DigraphMap extends AbstractGraph
 
     public void removeAllEdges()
     {
-        for(var i = 0; i < getAdjacencyMap().size(); i++)
+        for(int i = 0; i < getAdjacencyMap().size(); i++)
         {
             getAdjacencyMap().get(getVertices().get(i)).clear();
         }

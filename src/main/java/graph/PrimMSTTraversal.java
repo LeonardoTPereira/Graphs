@@ -20,14 +20,14 @@ public class PrimMSTTraversal extends TraversalStrategyInterface
 
     private void visitAllVertices()
     {
-        for (var i = 0; i < (getGraph().getNumberOfVertices()-1); i++)
+        for (int i = 0; i < (getGraph().getNumberOfVertices()-1); i++)
         {
             int closestVertexIndex = getClosestVertexIndex();
             if(closestVertexIndex != -1)
             {
                 markVertexAsVisited(closestVertexIndex);
-                var closestVertex = getGraph().getVertices().get(closestVertexIndex);
-                var adjacentVertex = getGraph().getFirstConnectedVertex(closestVertex);
+                Vertex closestVertex = getGraph().getVertices().get(closestVertexIndex);
+                Vertex adjacentVertex = getGraph().getFirstConnectedVertex(closestVertex);
                 updateAdjacentVertices(closestVertexIndex, closestVertex, adjacentVertex);
             }
         }
@@ -49,8 +49,8 @@ public class PrimMSTTraversal extends TraversalStrategyInterface
 
     private boolean isCloserAndNotVisited(int closestVertexIndex, int adjacentVertexIndex)
     {
-        var adjacentVertex = getGraph().getVertices().get(adjacentVertexIndex);
-        var closestVertex = getGraph().getVertices().get(closestVertexIndex);
+        Vertex adjacentVertex = getGraph().getVertices().get(adjacentVertexIndex);
+        Vertex closestVertex = getGraph().getVertices().get(closestVertexIndex);
         return (!hasVertexBeenVisited(adjacentVertexIndex)
                 && (getGraph().getDistance(closestVertex, adjacentVertex) < getDistanceToVertex(adjacentVertexIndex)));
     }
@@ -60,7 +60,7 @@ public class PrimMSTTraversal extends TraversalStrategyInterface
         float minDistance = Float.POSITIVE_INFINITY;
         int minIndex = -1;
 
-        for (var i = 0; i < getGraph().getNumberOfVertices(); i++)
+        for (int i = 0; i < getGraph().getNumberOfVertices(); i++)
         {
             if(!hasVertexBeenVisited(i) && (getDistanceToVertex(i) < minDistance))
             {

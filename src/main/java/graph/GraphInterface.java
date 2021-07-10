@@ -22,7 +22,5 @@ public interface GraphInterface
 
     float getDistance(Vertex source, Vertex destination);
 
-    void printInGraphViz(String fileName);
-
     void removeAllEdges();
 }
