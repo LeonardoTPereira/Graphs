@@ -35,7 +35,6 @@ public final class AStartPathFind extends TraversalStrategyInterface
         {
             currentVisitedVertex = peekVertexWithLowestDistance();
             currentVisitedVertexIndex = getGraph().getVertices().indexOf(currentVisitedVertex);
-            System.out.println("Current: "+currentVisitedVertex);
             if (currentVisitedVertex == destination)
             {
                 verticesToVisit.clear();
@@ -81,10 +80,6 @@ public final class AStartPathFind extends TraversalStrategyInterface
         }
         printDistances();
         printShortestPath(source, destination);
-        for (int i = 0; i < getGraph().getNumberOfVertices(); i++)
-        {
-            System.out.println("Predecessor "+ i + ": "+getPredecessorVertexIndex(i));
-        }
     }
 
     private Vertex peekVertexWithLowestDistance()
