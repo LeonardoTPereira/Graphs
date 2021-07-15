@@ -1,5 +1,7 @@
 package graph;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -74,7 +76,7 @@ public abstract class TraversalStrategyInterface
         traversalPath = new LinkedList<>();
     }
 
-    abstract void traverseGraph(Vertex source);
+    abstract void traverseGraph(Vertex source, @Nullable Vertex destination);
 
     public AbstractGraph getGraph()
     {
@@ -112,6 +114,23 @@ public abstract class TraversalStrategyInterface
         shortestPath.append(graph.getVertices().get(currentIndex));
         String shortestPathString = "\n"+ shortestPath +"\n";
         LOGGER.info(shortestPathString);
+    }
+
+    protected List<Vertex> getShortestPath(Vertex source, Vertex destination)
+    {
+        int sourceIndex = graph.getVertices().indexOf(source);
+        int destinationIndex = graph.getVertices().indexOf(destination);
+        int currentIndex = destinationIndex;
+        Vertex currentVertex = destination;
+        List<Vertex> shortestPath = new ArrayList<>();
+        do
+        {
+            shortestPath.add(currentVertex);
+            currentIndex = getPredecessorVertexIndex(currentIndex);
+            currentVertex = graph.getVertices().get(currentIndex);
+        }while(currentIndex != sourceIndex);
+        shortestPath.add(currentVertex);
+        return shortestPath;
     }
 
     protected void printDistances()

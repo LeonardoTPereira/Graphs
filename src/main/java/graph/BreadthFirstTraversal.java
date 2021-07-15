@@ -1,5 +1,6 @@
 package graph;
 
+import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,7 +13,7 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
     }
 
     @Override
-    public void traverseGraph(Vertex source)
+    public void traverseGraph(Vertex source,@Nullable Vertex destination)
     {
         int sourceIndex = getGraph().getVertices().indexOf(source);
         addToPath(source);

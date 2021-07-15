@@ -1,5 +1,6 @@
 package graph;
 
+import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
@@ -26,14 +27,14 @@ public class FloydWarshallTraversal extends TraversalStrategyInterface
     }
 
     @Override
-    void traverseGraph(Vertex source)
+    void traverseGraph(Vertex source, @Nullable Vertex destination)
     {
         for (int i = 0; i < getGraph().getNumberOfVertices(); i++)
         {
             for (int j = 0; j < getGraph().getNumberOfVertices(); j++)
             {
                 Vertex origin = getGraph().getVertices().get(i);
-                Vertex destination = getGraph().getVertices().get(j);
+                destination = getGraph().getVertices().get(j);
                 if(getGraph().edgeExists(origin, destination))
                 {
                     distanceMatrix[i][j] = getGraph().getDistance(origin, destination);

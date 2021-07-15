@@ -1,5 +1,7 @@
 package graph;
 
+import javax.annotation.Nullable;
+
 public class DepthFirstTraversal extends TraversalStrategyInterface
 {
     StringBuilder traversedPath;
@@ -11,7 +13,7 @@ public class DepthFirstTraversal extends TraversalStrategyInterface
     }
 
     @Override
-    public void traverseGraph(Vertex source)
+    public void traverseGraph(Vertex source, @Nullable Vertex destination)
     {
         depthFirstTraversalRecursion(source);
         printPath();

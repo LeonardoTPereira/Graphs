@@ -26,17 +26,30 @@ public class DelaunayTriangulation
                     if(isTriangle && triangleDoesNotOverlap(triangle, triangleList))
                     {
                         float weight;
-                        weight = (float) distance(triangle.getP1().getX(), triangle.getP1().getY(), triangle.getP2().getX(), triangle.getP2().getY());
+                        weight = getEuclideanDistance(triangle.getP1(), triangle.getP2());
                         graph.addEdge(graph.getVertices().get(i), graph.getVertices().get(j), weight);
-                        weight = (float) distance(triangle.getP1().getX(), triangle.getP1().getY(), triangle.getP3().getX(), triangle.getP3().getY());
+                        weight = getEuclideanDistance(triangle.getP1(), triangle.getP3());
                         graph.addEdge(graph.getVertices().get(i), graph.getVertices().get(k), weight);
-                        weight = (float) distance(triangle.getP2().getX(), triangle.getP2().getY(), triangle.getP3().getX(), triangle.getP3().getY());
+                        weight = getEuclideanDistance(triangle.getP2(), triangle.getP3());
                         graph.addEdge(graph.getVertices().get(j), graph.getVertices().get(k), weight);
                         triangleList.add(triangle);
                     }
                 }
             }
         }
+    }
+
+    private static float getManhattanDistance(Point p1, Point p2)
+    {
+        float distance;
+        distance = (float)Math.abs(p1.getX()-p2.getX());
+        distance += (float)Math.abs(p1.getY()-p2.getY());
+        return distance;
+    }
+
+    private static float getEuclideanDistance(Point p1, Point p2)
+    {
+        return (float) distance(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
 

@@ -1,15 +1,19 @@
 package graph;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class DungeonGraphic extends JFrame
 {
     AbstractGraph graph;
-    public DungeonGraphic(AbstractGraph graph)
+    List<Vertex> traversalPath;
+    public DungeonGraphic(AbstractGraph graph, @Nullable List<Vertex> traversalPath)
     {
         super("Dungeon");
         this.graph = graph;
+        this.traversalPath = traversalPath;
         getContentPane().setBackground(Color.black);
         setSize(900, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,6 +24,9 @@ public class DungeonGraphic extends JFrame
     private void drawDungeon(Graphics g)
     {
         Graphics2D graphics2D = (Graphics2D) g;
+        List<Vertex> shortestPath;
+        Vertex start = null;
+        Vertex end = null;
         if(graph != null)
         {
             for (int i = 0; i < graph.getNumberOfVertices(); i++)
@@ -42,12 +49,20 @@ public class DungeonGraphic extends JFrame
                     graphics2D.setColor(Color.GREEN);
                     graphics2D.fill(((Room) currentVertex).getRoom());
                 }
-                g.setColor(Color.PINK);
                 Vertex adjacentVertex = graph.getFirstConnectedVertex(currentVertex);
                 while(adjacentVertex != null)
                 {
+                    g.setColor(Color.PINK);
+                    if(traversalPath != null)
+                    {
+                        if(traversalPath.contains(adjacentVertex) && traversalPath.contains(currentVertex))
+                        {
+                            g.setColor(Color.CYAN);
+                        }
+                    }
                     g.drawLine((int)((Room) currentVertex).getPoint().getX(), (int)((Room) currentVertex).getPoint().getY(),
-                            (int)((Room) adjacentVertex).getPoint().getX(),(int) ((Room) adjacentVertex).getPoint().getY());
+                            (int)((Room) adjacentVertex).getPoint().getX(),
+                            (int) ((Room) adjacentVertex).getPoint().getY());
                     adjacentVertex = graph.getNextConnectedVertex(currentVertex, adjacentVertex);
                 }
             }

@@ -63,7 +63,7 @@ public final class GraphController
     {
         String graphString = "\n"+ g +"\n";
         LOGGER.info(graphString);
-        traversalStrategy.traverseGraph(g.getVertices().get(0));
+        traversalStrategy.traverseGraph(g.getVertices().get(0), null);
         if(traversalStrategy instanceof FloydWarshallTraversal)
         {
             Vertex center = g.getCentermostVertex(((FloydWarshallTraversal)traversalStrategy).getDistanceMatrix());

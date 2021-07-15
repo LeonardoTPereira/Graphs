@@ -1,5 +1,7 @@
 package graph;
 
+import javax.annotation.Nullable;
+
 public class PrimMSTTraversal extends TraversalStrategyInterface
 {
 
@@ -9,7 +11,7 @@ public class PrimMSTTraversal extends TraversalStrategyInterface
     }
 
     @Override
-    public void traverseGraph(Vertex source)
+    public void traverseGraph(Vertex source, @Nullable Vertex destination)
     {
         int sourceIndex = getGraph().getIndexOfVertex(source);
         setDistanceToVertex(sourceIndex, 0);
