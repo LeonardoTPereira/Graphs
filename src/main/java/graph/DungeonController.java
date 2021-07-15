@@ -43,9 +43,11 @@ public class DungeonController
 
     private static void createRandomDungeon(DungeonController dungeonController)
     {
+        System.out.println("What will be the random seed?");
         Scanner scanner = new Scanner(System.in);
         int seed = Integer.parseInt(scanner.nextLine());
         RandomSingleton.getInstance(seed);
+        System.out.println("How many rooms will the dungeon have?");
         int nRooms = Integer.parseInt(scanner.nextLine());
         RandomDungeonGenerator randomDungeonGenerator = new RandomDungeonGenerator(nRooms);
         dungeonController.dungeon = randomDungeonGenerator.getDungeon();
