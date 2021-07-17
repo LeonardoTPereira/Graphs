@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public final class BreadthFirstTraversal extends TraversalStrategyInterface
+public class BreadthFirstTraversal extends TraversalStrategyInterface
 {
 
     public BreadthFirstTraversal(AbstractGraph graph)
@@ -48,7 +48,7 @@ public final class BreadthFirstTraversal extends TraversalStrategyInterface
         printPath();
     }
 
-    private void updateTraversalInfoForVertex(int newVertexIndex, int previousVertexIndex)
+    protected void updateTraversalInfoForVertex(int newVertexIndex, int previousVertexIndex)
     {
         Vertex newVertex = getGraph().getVertices().get(newVertexIndex);
         Vertex oldVertex = getGraph().getVertices().get(previousVertexIndex);

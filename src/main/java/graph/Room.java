@@ -7,6 +7,7 @@ public class Room extends Vertex
     private boolean isEntrance;
     private boolean isExit;
     private boolean isCheckpoint;
+    private int keyID;
 
     public boolean isEntrance()
     {
@@ -51,6 +52,7 @@ public class Room extends Vertex
         isExit = false;
         isCheckpoint = false;
         room = new Rectangle(point, dimension);
+        keyID = -1;
     }
 
     public Room(Rectangle rectangle)
@@ -60,6 +62,7 @@ public class Room extends Vertex
         isExit = false;
         isCheckpoint = false;
         room = rectangle;
+        keyID = -1;
     }
     public Point getPoint()
     {
@@ -72,5 +75,19 @@ public class Room extends Vertex
         return "Room{" +
                 "(X, Y)= (" + room.getX() + ", " + room.getY() + ")"+
                 '}';
+    }
+
+    public int getKeyID()
+    {
+        return keyID;
+    }
+
+    public void setKeyID(int keyID)
+    {
+        if(keyID < 0)
+        {
+            System.out.println("CHAVE NÃO PODE SER NEGATIVA");
+        }
+        this.keyID = keyID;
     }
 }

@@ -212,4 +212,19 @@ public class DigraphMatrix extends AbstractGraph
             }
         }
     }
+
+    @Override
+    public void lockEdge(Vertex source, Vertex destination, int lockID)
+    {
+        Edge edge = getEdge(source, destination);
+        edge.setLockID(lockID);
+    }
+
+    @Override
+    public Edge getEdge(Vertex source, Vertex destination)
+    {
+        int sourceIndex = getIndexOfVertex(source);
+        int destinationIndex = getIndexOfVertex(destination);
+        return getAdjacencyMatrix()[sourceIndex][destinationIndex];
+    }
 }

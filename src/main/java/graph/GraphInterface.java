@@ -23,4 +23,8 @@ public interface GraphInterface
     float getDistance(Vertex source, Vertex destination);
 
     void removeAllEdges();
+
+    void lockEdge(Vertex source, Vertex destination, int lockID);
+
+    Edge getEdge(Vertex source, Vertex destination);
 }

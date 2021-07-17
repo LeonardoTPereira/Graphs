@@ -34,4 +34,11 @@ public class GraphMatrix extends DigraphMatrix
     {
         return (GraphMatrix)super.clone();
     }
+
+    @Override
+    public void lockEdge(Vertex source, Vertex destination, int lockID)
+    {
+        super.lockEdge(source, destination, lockID);
+        super.lockEdge(destination, source, lockID);
+    }
 }

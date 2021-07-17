@@ -205,4 +205,22 @@ public class DigraphMap extends AbstractGraph
         }
         getAdjacencyMap().clear();
     }
+
+    @Override
+    public void lockEdge(Vertex source, Vertex destination, int lockID)
+    {
+        Edge edge = getEdge(source, destination);
+        edge.setLockID(lockID);
+    }
+
+    @Override
+    public Edge getEdge(Vertex source, Vertex destination)
+    {
+        int currentAdjacentVertexIndex = 0;
+        while(getAdjacencyMap().get(source).get(currentAdjacentVertexIndex).getDestination() != destination)
+        {
+            currentAdjacentVertexIndex++;
+        }
+        return getAdjacencyMap().get(source).get(currentAdjacentVertexIndex);
+    }
 }

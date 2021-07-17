@@ -41,6 +41,12 @@ public class GraphList extends DigraphList
         int vertexIndex = getVertices().indexOf(vertex);
         return !getAdjacencyList().get(vertexIndex).isEmpty();
     }
+    @Override
+    public void lockEdge(Vertex source, Vertex destination, int lockID)
+    {
+        super.lockEdge(source, destination, lockID);
+        super.lockEdge(destination, source, lockID);
+    }
 
     @Override
     protected GraphList clone() throws CloneNotSupportedException

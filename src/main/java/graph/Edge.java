@@ -4,17 +4,20 @@ public class Edge
 {
     private Vertex destination;
     private float weight;
+    private int lockID;
 
     public Edge(Vertex destination, float weight)
     {
         this.destination = destination;
         this.weight = weight;
+        this.lockID = -1;
     }
 
     public Edge(float weight)
     {
         this.destination = null;
         this.weight = weight;
+        this.lockID = -1;
     }
 
     public Vertex getDestination()
@@ -37,4 +40,13 @@ public class Edge
         this.weight = weight;
     }
 
+    public int getLockID()
+    {
+        return lockID;
+    }
+
+    public void setLockID(int lockID)
+    {
+        this.lockID = lockID;
+    }
 }

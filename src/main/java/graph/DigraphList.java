@@ -208,4 +208,22 @@ public class DigraphList extends AbstractGraph
             getAdjacencyList().get(i).clear();
         }
     }
+
+    public void lockEdge(Vertex source, Vertex destination, int lockID)
+    {
+        Edge edge = getEdge(source, destination);
+        edge.setLockID(lockID);
+    }
+
+    @Override
+    public Edge getEdge(Vertex source, Vertex destination)
+    {
+        int vertexIndex = getVertices().indexOf(source);
+        int currentAdjacentVertexIndex = 0;
+        while(getAdjacencyList().get(vertexIndex).get(currentAdjacentVertexIndex).getDestination() != destination)
+        {
+            currentAdjacentVertexIndex++;
+        }
+        return getAdjacencyList().get(vertexIndex).get(currentAdjacentVertexIndex);
+    }
 }
