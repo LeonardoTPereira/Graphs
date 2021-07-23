@@ -73,9 +73,9 @@ public abstract class AbstractGraph implements GraphInterface, Cloneable
 
     private int getMinDistanceIndexInCollumn(float[] distanceArray)
     {
-        int minIndex = 0;
-        float minDistance = distanceArray[0];
-        for (int i = 1; i < distanceArray.length; i++)
+        var minIndex = 0;
+        var minDistance = distanceArray[0];
+        for (var i = 1; i < distanceArray.length; i++)
         {
             if(minDistance > distanceArray[i])
             {
@@ -94,7 +94,7 @@ public abstract class AbstractGraph implements GraphInterface, Cloneable
     @Override
     protected AbstractGraph clone() throws CloneNotSupportedException
     {
-        AbstractGraph graphClone = (AbstractGraph)super.clone();
+        var graphClone = (AbstractGraph)super.clone();
         graphClone.setNumberOfVertices(this.getNumberOfVertices());
         graphClone.setVertices(new ArrayList<>(this.getVertices()));
         return graphClone;

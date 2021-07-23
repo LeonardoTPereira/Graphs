@@ -64,6 +64,8 @@ public class DigraphMatrix extends AbstractGraph
         if(!edgeExists(source, destination))
         {
             getAdjacencyMatrix()[getVertices().indexOf(source)][getVertices().indexOf(destination)] = new Edge(weight);
+            source.incrementOutDegree();
+            destination.incrementInDegree();
         }
     }
 
@@ -75,6 +77,8 @@ public class DigraphMatrix extends AbstractGraph
         if(edgeExists(source, destination))
         {
             getAdjacencyMatrix()[sourceIndex][destinationIndex] = null;
+            source.decrementOutDegree();
+            destination.decrementInDegree();
         }
     }
 

@@ -10,8 +10,8 @@ import static java.awt.geom.Point2D.distance;
 public final class AStartPathFind extends TraversalStrategyInterface
 {
 
-    private List<Vertex> verticesToVisit;
-    private float []heuristicDistanceToVertex;
+    private final List<Vertex> verticesToVisit;
+    private final float []heuristicDistanceToVertex;
     public AStartPathFind(AbstractGraph graph)
     {
         super(graph);
@@ -30,7 +30,7 @@ public final class AStartPathFind extends TraversalStrategyInterface
         List<Vertex> closedNodes = new LinkedList<>();
         verticesToVisit.add(source);
         Vertex currentVisitedVertex = source;
-        int currentVisitedVertexIndex = getGraph().getVertices().indexOf(currentVisitedVertex);
+        int currentVisitedVertexIndex;
         while(!verticesToVisit.isEmpty())
         {
             currentVisitedVertex = peekVertexWithLowestDistance();
@@ -41,7 +41,7 @@ public final class AStartPathFind extends TraversalStrategyInterface
             }
             else
             {
-                Vertex adjacentVertex = getGraph().getFirstConnectedVertex(currentVisitedVertex);
+                var adjacentVertex = getGraph().getFirstConnectedVertex(currentVisitedVertex);
                 while (adjacentVertex != null)
                 {
                     int adjacentVertexIndex = getGraph().getVertices().indexOf(adjacentVertex);

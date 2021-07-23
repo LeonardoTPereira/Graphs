@@ -52,6 +52,8 @@ public class DigraphList extends AbstractGraph
         {
             int sourceIndex = getVertices().indexOf(source);
             getAdjacencyList().get(sourceIndex).add(new Edge(destination, weight));
+            source.incrementOutDegree();
+            destination.incrementInDegree();
         }
     }
 
@@ -65,6 +67,8 @@ public class DigraphList extends AbstractGraph
             if(sourceEdges.get(i).getDestination() == destination)
             {
                 sourceEdges.remove(i);
+                source.decrementOutDegree();
+                destination.decrementInDegree();
             }
         }
     }
